@@ -44,7 +44,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: musiCityBgColor,
+     // backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           Padding(

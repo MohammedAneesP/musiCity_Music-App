@@ -40,7 +40,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
     return player.builderCurrent(
       builder: (context, playing) {
         return Scaffold(
-          backgroundColor: musiCityBgColor,
+          //backgroundColor: musiCityBgColor,
           body: Column(
             children: [
               Row(
@@ -54,7 +54,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                       icon: Icon(
                         Icons.arrow_back_rounded,
                         size: 25,
-                        color: whiteColor,
+                       // color: whiteColor,
                       ),
                     ),
                   ),
@@ -88,7 +88,13 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                       playing.audio.audio.metas.title,
                                 ),
                               ),
-                              AddFromNowPlay(songIndex: playing.index),
+                              AddFromNowPlay(
+                                songIndex: nowRecentSong.indexWhere(
+                                  (element) =>
+                                      element.songName ==
+                                      playing.audio.audio.metas.title,
+                                ),
+                              ),
                             ],
                           ),
                           const SizedBox(height: 10),
@@ -136,7 +142,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                 icon: Icon(
                                   Icons.replay_10_rounded,
                                   size: 30,
-                                  color: whiteColor,
+                                  //color: whiteColor,
                                 ),
                               ),
 
@@ -158,10 +164,10 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                   await player
                                       .seekBy(const Duration(seconds: 10));
                                 },
-                                icon:  Icon(
+                                icon: Icon(
                                   Icons.forward_10_rounded,
                                   size: 30,
-                                  color: whiteColor,
+                                 // color: whiteColor,
                                 ),
                               ),
 
@@ -178,7 +184,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                   child: Text(
                                     player.getCurrentAudioArtist,
                                     style: const TextStyle(
-                                      color: Colors.white70,
+                                     // color: Colors.white70,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -205,18 +211,18 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                     padding: EdgeInsets.fromLTRB(
                         mqwidth * 0.07, 0, mqwidth * 0.07, 0),
                     child: ProgressBar(
-                      progressBarColor: Colors.redAccent,
-                      baseBarColor: Colors.white70,
-                      thumbColor: Colors.white,
+                     // progressBarColor: Colors.redAccent,
+                     // baseBarColor: Color.fromARGB(179, 135, 81, 81),
+                      //thumbColor: Color.fromARGB(255, 6, 5, 5),
                       progress: songNowPosition,
-                      thumbGlowColor: Colors.deepOrange,
+                     // thumbGlowColor: Colors.deepOrange,
                       thumbGlowRadius: 15,
                       thumbRadius: 7,
                       barHeight: 3,
                       timeLabelPadding: mqheight * 0.004,
                       total: songDuration,
                       onSeek: (songDuration) => player.seek(songDuration),
-                      timeLabelTextStyle: const TextStyle(color: Colors.white),
+                     // timeLabelTextStyle: const TextStyle(color: Colors.white),
                     ),
                   );
                 },
@@ -245,7 +251,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                             )
                           : const Icon(
                               Icons.shuffle,
-                              color: Colors.white,
+                             // color: Colors.white,
                             ),
                     ),
 
@@ -286,12 +292,12 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                           icon: playing.index == 0
                               ? Icon(
                                   Icons.skip_previous_rounded,
-                                  color: Colors.red.withOpacity(0.4),
+                                  color: Color.fromARGB(255, 94, 93, 93),
                                   size: 35,
                                 )
                               : const Icon(
                                   Icons.skip_previous_rounded,
-                                  color: Colors.white,
+                                 // color: Colors.white,
                                 ),
                           iconSize: 35,
                         );
@@ -305,7 +311,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                       width: mqwidth * 0.2,
                       decoration: const BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.white,
+                        color: Colors.blueAccent,
                       ),
                       child: Center(
                         child: PlayerBuilder.isPlaying(
@@ -371,7 +377,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                 )
                               : const Icon(
                                   Icons.skip_next_rounded,
-                                  color: Colors.white,
+                                  //color: Colors.white,
                                   size: 35,
                                 ),
                         );
@@ -399,7 +405,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                             )
                           : const Icon(
                               Icons.repeat_sharp,
-                              color: Colors.white,
+                             // color: Colors.white,
                               size: 27,
                             ),
                     ),

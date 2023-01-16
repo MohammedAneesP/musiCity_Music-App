@@ -30,7 +30,7 @@ class _MyPlaylistState extends State<MyPlaylist> {
       floatingActionButton: Padding(
         padding: EdgeInsets.fromLTRB(0, 0, mqwidth * 0.05, mqheight * 0.03),
         child: FloatingActionButton(
-          backgroundColor: whiteColor,
+         // backgroundColor: whiteColor,
           tooltip: "create playlist",
           onPressed: () {
             showDialog(
@@ -81,10 +81,9 @@ class _MyPlaylistState extends State<MyPlaylist> {
                               playlistSongs: [],
                             ),
                           );
-
                           SnackAddDeleteMsg("playlist created", context);
+                          Navigator.pop(context);
                         }
-                        Navigator.pop(context);
                       },
                       child: const Text("Save"),
                     ),
@@ -99,7 +98,7 @@ class _MyPlaylistState extends State<MyPlaylist> {
           ),
         ),
       ),
-      backgroundColor: musiCityBgColor,
+     // backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           Padding(
@@ -154,7 +153,7 @@ class _MyPlaylistState extends State<MyPlaylist> {
                             trailing: PopupMenuButton(
                               icon: Icon(
                                 Icons.more_vert_sharp,
-                                color: whiteColor,
+                                //color: whiteColor,
                               ),
                               color: Colors.red[100],
                               itemBuilder: (context) {
@@ -172,90 +171,82 @@ class _MyPlaylistState extends State<MyPlaylist> {
                                       playlistNameEditor =
                                           playlistNameController;
                                       Future.delayed(
-                                          const Duration(seconds: 0),
-                                          () => showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return AlertDialog(
-                                                    title: const Text(
-                                                      "Rename Your Plalist",
+                                        const Duration(seconds: 0),
+                                        () => showDialog(
+                                          context: context,
+                                          builder: (context) {
+                                            return AlertDialog(
+                                              title: const Text(
+                                                "Rename Your Plalist",
+                                              ),
+                                              content: Form(
+                                                key: editorFormKey,
+                                                child: TextFormField(
+                                                  controller:
+                                                      playlistNameEditor,
+                                                  decoration:
+                                                      const InputDecoration(
+                                                    border: OutlineInputBorder(
+                                                      borderSide: BorderSide(
+                                                          color: Colors.black),
                                                     ),
-                                                    content: Form(
-                                                      key: editorFormKey,
-                                                      child: TextFormField(
-                                                        controller:
-                                                            playlistNameEditor,
-                                                        decoration:
-                                                            const InputDecoration(
-                                                          border:
-                                                              OutlineInputBorder(
-                                                            borderSide:
-                                                                BorderSide(
-                                                                    color: Colors
-                                                                        .black),
-                                                          ),
-                                                        ),
-                                                        validator: (value) {
-                                                          List<PlaylistModel>
-                                                              editValid =
-                                                              myPlaylist.values
-                                                                  .toList();
-                                                          bool isAlreadyThere = editValid
-                                                              .where((element) =>
-                                                                  element
-                                                                      .playlistName ==
-                                                                  value!.trim())
-                                                              .isNotEmpty;
+                                                  ),
+                                                  validator: (value) {
+                                                    List<PlaylistModel>
+                                                        editValid = myPlaylist
+                                                            .values
+                                                            .toList();
+                                                    bool isAlreadyThere = editValid
+                                                        .where((element) =>
+                                                            element
+                                                                .playlistName ==
+                                                            value!.trim())
+                                                        .isNotEmpty;
 
-                                                          if (value!
-                                                              .trim()
-                                                              .isEmpty) {
-                                                            return "Name required";
-                                                          }
-                                                          if (isAlreadyThere) {
-                                                            return "Existing Name";
-                                                          } else {
-                                                            return null;
-                                                          }
-                                                        },
-                                                      ),
-                                                    ),
-                                                    actions: [
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          Navigator.pop(
-                                                              context);
-                                                        },
-                                                        child: const Text(
-                                                            "Cancel"),
-                                                      ),
-                                                      TextButton(
-                                                        onPressed: () {
-                                                          final isValid =
-                                                              editorFormKey
-                                                                  .currentState!
-                                                                  .validate();
-                                                          if (isValid) {
-                                                            myPlaylist.putAt(
-                                                              index,
-                                                              PlaylistModel(
-                                                                playlistName:
-                                                                    playlistNameEditor
-                                                                        .text,
-                                                                playlistSongs: [],
-                                                              ),
-                                                            );
-                                                            Navigator.pop(
-                                                                context);
-                                                          }
-                                                        },
-                                                        child: const Text(
-                                                            "submit"),
-                                                      ),
-                                                    ],
-                                                  );
-                                                },
-                                              ));
+                                                    if (value!.trim().isEmpty) {
+                                                      return "Name required";
+                                                    }
+                                                    if (isAlreadyThere) {
+                                                      return "Existing Name";
+                                                    } else {
+                                                      return null;
+                                                    }
+                                                  },
+                                                ),
+                                              ),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                  child: const Text("Cancel"),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () {
+                                                    final isValid =
+                                                        editorFormKey
+                                                            .currentState!
+                                                            .validate();
+                                                    if (isValid) {
+                                                      myPlaylist.putAt(
+                                                        index,
+                                                        PlaylistModel(
+                                                          playlistName:
+                                                              playlistNameEditor
+                                                                  .text,
+                                                          playlistSongs: [],
+                                                        ),
+                                                      );
+                                                      Navigator.pop(context);
+                                                    }
+                                                  },
+                                                  child: const Text("submit"),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        ),
+                                      );
                                     },
                                   ),
                                 ];

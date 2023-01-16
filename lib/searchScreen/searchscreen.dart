@@ -47,7 +47,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
     return SafeArea(
       child: Scaffold(
-        backgroundColor: musiCityBgColor,
+       //backgroundColor: musiCityBgColor,
         body: Column(
           children: [
             SizedBox(
@@ -63,47 +63,53 @@ class _SearchScreenState extends State<SearchScreen> {
                   width: mqwidth * .85,
                   child: TextFormField(
                     controller: searchcontroller,
+
+                    //-------------------------------------------------------search suggetion updating -----------------------------------------------//
+
                     onChanged: (value) {
-                      return setState(() {
-                        searchListingSong = searchAllSong
-                            .where(
-                              (element) =>
-                                  element.songName.toLowerCase().contains(
-                                        value.toLowerCase(),
-                                      ),
-                            )
-                            .toList();
-                        searchedSong.clear();
-                        for (var searchitem in searchListingSong) {
-                          searchedSong.add(
-                            Audio.file(
-                              searchitem.songurl,
-                              metas: Metas(
-                                title: searchitem.songName,
-                                artist: searchitem.artists,
-                                id: searchitem.id.toString(),
+                      return setState(
+                        () {
+                          searchListingSong = searchAllSong
+                              .where(
+                                (element) =>
+                                    element.songName.toLowerCase().contains(
+                                          value.toLowerCase(),
+                                        ),
+                              )
+                              .toList();
+                          searchedSong.clear();
+                          for (var searchitem in searchListingSong) {
+                            searchedSong.add(
+                              Audio.file(
+                                searchitem.songurl,
+                                metas: Metas(
+                                  title: searchitem.songName,
+                                  artist: searchitem.artists,
+                                  id: searchitem.id.toString(),
+                                ),
                               ),
-                            ),
-                          );
-                        }
-                      });
-                      ;
+                            );
+                          }
+                        },
+                      );
+
+                      //----------------------------------------------------------search suggetion updating --------------------------------------------//
                     },
                     decoration: InputDecoration(
                       hintText: "Songs",
                       filled: true,
-                      fillColor: Colors.white70,
+                    //  fillColor: Colors.white70,
                       //border: OutlineInputBorder(),
                       enabledBorder: OutlineInputBorder(
                           borderSide: const BorderSide(
                             width: 3,
-                            color: Colors.black87,
+                           // color: Colors.black87,
                           ),
                           borderRadius: BorderRadius.circular(20)),
                       focusedBorder: OutlineInputBorder(
                         borderSide: const BorderSide(
                           width: 3,
-                          color: Colors.black87,
+                         // color: Colors.black87,
                         ),
                         borderRadius: BorderRadius.circular(30),
                       ),
@@ -113,9 +119,9 @@ class _SearchScreenState extends State<SearchScreen> {
                 SizedBox(
                   width: mqwidth * 0.02,
                 ),
-                Icon(
+               const Icon(
                   Icons.search_rounded,
-                  color: whiteColor,
+                  //color: whiteColor,
                   size: 35,
                 ),
               ],
@@ -147,22 +153,30 @@ class _SearchScreenState extends State<SearchScreen> {
                               headPhoneStrategy:
                                   HeadPhoneStrategy.pauseOnUnplug,
                             );
-                            Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  NowPlayingScreeen(currentPlayIndex: index),
-                            ));
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => NowPlayingScreeen(
+                                  currentPlayIndex: searchAllSong.indexWhere(
+                                    (element) =>
+                                        element.id ==
+                                        searchListingSong[index].id,
+                                  ),
+                                ),
+                              ),
+                            );
+                            FocusScope.of(context).unfocus();
                           },
                           leading: QueryArtworkWidget(
-                            id: searchListingSong[index].id,
-                            type: ArtworkType.AUDIO,
-                            artworkFit: BoxFit.cover,
-                            artworkQuality: FilterQuality.high,
-                            artworkBorder: BorderRadius.circular(30),
-                            nullArtworkWidget: const CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage('assets/pexels-sebastian-ervi-1763075.jpg'),
-                            )
-                          ),
+                              id: searchListingSong[index].id,
+                              type: ArtworkType.AUDIO,
+                              artworkFit: BoxFit.cover,
+                              artworkQuality: FilterQuality.high,
+                              artworkBorder: BorderRadius.circular(30),
+                              nullArtworkWidget: const CircleAvatar(
+                                radius: 25,
+                                backgroundImage: AssetImage(
+                                    'assets/pexels-sebastian-ervi-1763075.jpg'),
+                              )),
                           title: Text(
                             searchListingSong[index].songName,
                             style: songNameStyle,
@@ -172,7 +186,9 @@ class _SearchScreenState extends State<SearchScreen> {
                       }
                     },
                     separatorBuilder: (context, index) {
-                      return Divider();
+                      return const Divider(
+                       // color: whiteColor,
+                      );
                     },
                     itemCount: searchListingSong.length),
               ),

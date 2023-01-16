@@ -26,7 +26,7 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
           builder: (context) {
             return Container(
               height: mqheight * 0.4,
-              color: const Color.fromARGB(255, 45, 13, 13),
+              //color: const Color.fromARGB(255, 45, 13, 13),
               child: Column(
                 children: [
                   Text("My Playlist's", style: defaultTextStyle),
@@ -51,7 +51,8 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
                                   onTap: () {},
                                   child: ListTile(
                                     leading: Icon(Icons.library_music_sharp,
-                                        color: whiteColor),
+                                       // color: whiteColor,
+                                        ),
                                     title: Text(
                                       addPlaylistName[index].playlistName,
                                       style: songNameStyle,
@@ -108,7 +109,7 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
                               separatorBuilder: (context, index) {
                                 return Divider(
                                   thickness: 1,
-                                  color: whiteColor,
+                                 // color: whiteColor,
                                 );
                               },
                               itemCount: myPlaylist.length),
@@ -125,7 +126,7 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
       },
       icon: Icon(
         Icons.add,
-        color: whiteColor,
+       // color: whiteColor,
         size: 30,
       ),
     );

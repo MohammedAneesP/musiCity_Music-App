@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:musi_city/functions/themechange/themechanging.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/screens/splashscreen.dart';
+import 'package:provider/provider.dart';
 import 'functions/box_opening.dart';
 import 'models/favorite_model.dart';
 import 'models/mostly_model.dart';
@@ -37,13 +39,23 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: "musiCity",
-      theme: ThemeData(
-        primarySwatch: Colors.red,
-      ),
-      home: const SplashScreen(),
-      debugShowCheckedModeBanner: false,
+    return ChangeNotifierProvider(
+      create: (context) => ThemeProvider(),
+      builder: (context, child) {
+
+        final themeProvider = Provider.of<ThemeProvider>(context);
+
+        return  MaterialApp(
+        title: "musiCity",
+        
+        themeMode: themeProvider.themeMode,
+        theme: MyThemes.lightTheme,
+        darkTheme: MyThemes.dakTheme,
+        home: const SplashScreen(),
+        debugShowCheckedModeBanner: false,
+      );
+      },
+      
     );
   }
 }

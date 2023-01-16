@@ -48,7 +48,7 @@ class _PlaylistCreatedState extends State<PlaylistCreated> {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: musiCityBgColor,
+     // backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           SizedBox(
@@ -134,7 +134,7 @@ class _PlaylistCreatedState extends State<PlaylistCreated> {
                               },
                               icon: Icon(
                                 Icons.delete_rounded,
-                                color: whiteColor,
+                               // color: whiteColor,
                               ),
                             ),
                           );

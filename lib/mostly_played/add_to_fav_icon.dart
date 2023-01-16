@@ -45,9 +45,9 @@ class _AddToFAvIconState extends State<AddToFAvIcon> {
               //Navigator.pop(context);
               SnackAddDeleteMsg("Added to Favorite's", context);
             },
-            icon: Icon(
+            icon:const Icon(
               Icons.favorite_outline_sharp,
-              color: whiteColor,
+             // color: whiteColor,
             ),
           )
         : IconButton(
@@ -62,7 +62,7 @@ class _AddToFAvIconState extends State<AddToFAvIcon> {
             },
             icon: Icon(
               Icons.favorite_sharp,
-              color: whiteColor,
+              color: Colors.redAccent[400],
             ),
           );
   }

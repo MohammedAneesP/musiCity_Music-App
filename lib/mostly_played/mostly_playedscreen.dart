@@ -29,13 +29,15 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
   void initState() {
     fullSongForMostly = allSongList.values.toList();
     List<MostlyModel> msPldSongList = mostlyPlayedBox.values.toList();
-    int i = 0;
-    for (var oneSongCount in msPldSongList) {
-      if (oneSongCount.songCount >= 3) {
-        mostlyScreenSongs.remove(oneSongCount);
-        mostlyScreenSongs.insert(i, oneSongCount);
-        i++;
+
+   // log(msPldSongList.toString());
+
+    for (var oneSong in msPldSongList) {
+      if (oneSong.songCount >= 3) {
+        mostlyScreenSongs.remove(oneSong);
+        mostlyScreenSongs.add(oneSong);
       }
+      // log(oneSong.toString());
     }
 
     for (var items in mostlyScreenSongs) {
@@ -50,7 +52,6 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
         ),
       );
     }
-
     super.initState();
   }
 
@@ -60,7 +61,7 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: musiCityBgColor,
+    //  backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           SizedBox(
@@ -74,6 +75,41 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                 Text(
                   "Mostly Played",
                   style: headingStyle,
+                ),SizedBox(
+                  width: mqwidth*0.08,
+                ),
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                          context: context,
+                          builder: (context) {
+                            return AlertDialog(
+                              title: const Text(
+                                  "Do you want to clear all songs..?"),
+                              content: const Text("Are you Sure..."),
+                              actions: [
+                                TextButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("Cancel"),
+                                ),
+                                TextButton(
+                                    onPressed: () {
+                                      mostlyScreenSongs.clear();
+                                      setState(() {});
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("Yes"))
+                              ],
+                            );
+                          },
+                        );
+                  },
+                  icon: Icon(
+                    Icons.delete,
+                   // color: whiteColor,
+                  ),
                 ),
               ],
             ),
@@ -83,12 +119,12 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
               child: ValueListenableBuilder(
                 valueListenable: mostlyPlayedBox.listenable(),
                 builder: (BuildContext, Box<MostlyModel> mostlyScreenList, _) {
-                  List<MostlyModel> mostlySonglist =
-                      mostlyScreenList.values.toList();
-                  if (mostlySonglist.isEmpty) {
+                  if (mostlyScreenSongs.isEmpty) {
                     return Center(
-                      child: Text('''Nothing Played that much''',
-                          style: defaultTextStyle),
+                      child: Text(
+                        'Nothing Played yet',
+                        style: defaultTextStyle,
+                      ),
                     );
                   } else {
                     return ListView.separated(
@@ -104,12 +140,21 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                                 loopMode: LoopMode.playlist,
                                 showNotification: true,
                               );
-                              Navigator.of(context).push(MaterialPageRoute(
-                                builder: (context) {
-                                  return NowPlayingScreeen(
-                                      currentPlayIndex: index);
-                                },
-                              ));
+                              Navigator.of(context).push(
+                                MaterialPageRoute(
+                                  builder: (context) {
+                                    return NowPlayingScreeen(
+                                      currentPlayIndex:
+                                          fullSongForMostly.indexWhere(
+                                        (element) =>
+                                            element.songName ==
+                                            mostlyScreenSongs[index]
+                                                .mostlySongName,
+                                      ),
+                                    );
+                                  },
+                                ),
+                              );
                             },
                             leading: QueryArtworkWidget(
                               id: mostlyScreenSongs[index].mostlySongId,

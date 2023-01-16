@@ -50,7 +50,7 @@ class _FavNowPlayButtonState extends State<FavNowPlayButton> {
             },
             icon: const Icon(
               Icons.favorite_border_sharp,
-              color: Colors.white,
+              //color: Colors.white,
               size: 30,
             ))
         : IconButton(
@@ -68,9 +68,9 @@ class _FavNowPlayButtonState extends State<FavNowPlayButton> {
               );
               setState(() {});
             },
-            icon: const Icon(
+            icon:  Icon(
               Icons.favorite_sharp,
-              color: Colors.white,
+              color: Colors.redAccent[400],
               size: 30,
             ),
           );

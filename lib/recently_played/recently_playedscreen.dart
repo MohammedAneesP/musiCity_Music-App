@@ -48,7 +48,7 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      backgroundColor: musiCityBgColor,
+     // backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           SizedBox(
@@ -98,8 +98,8 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                       },
                       icon: Icon(
                         Icons.delete,
-                        color: whiteColor,
-                      )),
+                       // color: whiteColor,
+                      ),),
                 )
               ],
             ),
@@ -141,7 +141,13 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                               Navigator.of(context).push(
                                 MaterialPageRoute(
                                   builder: (context) => NowPlayingScreeen(
-                                      currentPlayIndex: index),
+                                    currentPlayIndex:
+                                        fullSongForRecnly.indexWhere(
+                                      (element) =>
+                                          element.songName ==
+                                          recFullSong.recentSongName,
+                                    ),
+                                  ),
                                 ),
                               );
                             },
@@ -174,8 +180,8 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                                   context: context,
                                   builder: ((context) {
                                     return Container(
-                                      color:
-                                          const Color.fromARGB(255, 45, 13, 13),
+                                    //  color:
+                                      //    const Color.fromARGB(255, 45, 13, 13),
                                       height: mqheight * .15,
                                       child: Column(
                                         mainAxisAlignment:
@@ -201,7 +207,7 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                                           ),
                                           Divider(
                                             height: mqheight * .01,
-                                            color: whiteColor,
+                                           // color: whiteColor,
                                           ),
                                           InkWell(
                                             onTap: () {},
@@ -226,7 +232,7 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                               },
                               icon: Icon(
                                 Icons.more_vert_sharp,
-                                color: whiteColor,
+                                //color: whiteColor,
                               ),
                             ),
                           ),
@@ -246,28 +252,28 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
   }
 }
 
-List listOfRecentlyTitles = [
-  "Track 1",
-  "Track 2",
-  "Track 4",
-  "Track 5",
-  "Track 7",
-  "Track 8",
-  "Track 9",
-  "Track 10",
-  "Track 11",
-  "Track 13",
-];
+// List listOfRecentlyTitles = [
+//   "Track 1",
+//   "Track 2",
+//   "Track 4",
+//   "Track 5",
+//   "Track 7",
+//   "Track 8",
+//   "Track 9",
+//   "Track 10",
+//   "Track 11",
+//   "Track 13",
+// ];
 
-List listOfRecentlySubTitles = [
-  "Singer1",
-  "Singer2",
-  "Singer4",
-  "Singer5",
-  "Singer7",
-  "Singer8",
-  "Singer9",
-  "Singer10",
-  "Singer11",
-  "Singer13",
-];
+// List listOfRecentlySubTitles = [
+//   "Singer1",
+//   "Singer2",
+//   "Singer4",
+//   "Singer5",
+//   "Singer7",
+//   "Singer8",
+//   "Singer9",
+//   "Singer10",
+//   "Singer11",
+//   "Singer13",
+// ];

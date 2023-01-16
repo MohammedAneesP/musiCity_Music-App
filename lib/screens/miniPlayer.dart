@@ -44,9 +44,9 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                 blurStyle: BlurStyle.outer,
               )
             ],
-            color: musiCityBgColor,
+           // color: musiCityBgColor,
             border: Border.all(
-              color: whiteColor,
+             // color: whiteColor,
             ),
           ),
           child: Column(
@@ -91,13 +91,13 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                               title: Text(
                                 player.getCurrentAudioTitle,
                                 style: TextStyle(
-                                    color: whiteColor,
+                                  //  color: whiteColor,
                                     overflow: TextOverflow.ellipsis),
                               ),
                               subtitle: Text(
                                 player.getCurrentAudioArtist,
                                 style: const TextStyle(
-                                    color: Colors.white70,
+                                   // color: Colors.white70,
                                     overflow: TextOverflow.ellipsis),
                               ),
                             ),
@@ -140,18 +140,18 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                               ? const Icon(
                                   Icons.skip_previous_rounded,
                                   size: 30,
-                                  color: Colors.white30,
+                                  color: Color.fromARGB(255, 134, 130, 130),
                                 )
                               : Icon(
                                   Icons.skip_previous_rounded,
                                   size: 30,
-                                  color: whiteColor,
+                                  //color: whiteColor,
                                 ),
                         ),
 //---------------------------------------------------previous button------------------------------------------//
 
                         CircleAvatar(
-                          backgroundColor: whiteColor,
+                          backgroundColor: Colors.blue,
                           radius: 27,
                           child: PlayerBuilder.isPlaying(
                             player: player,
@@ -210,7 +210,7 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                                 )
                               :  Icon(
                                   Icons.skip_next_rounded,
-                                  color: whiteColor,
+                                  //color: whiteColor,
                                 ),
                         ),
                       ],

@@ -53,11 +53,11 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      backgroundColor: musiCityBgColor,
+     // backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           Container(
-            color: musiCityBgColor,
+            //color: musiCityBgColor,
             height: mqheight * .04,
           ),
           Container(
@@ -70,7 +70,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                   Text(
                     "musiCity",
                     style: GoogleFonts.alexBrush(
-                        fontSize: 60, color: Colors.white),
+                        fontSize: 60, ),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(
@@ -87,7 +87,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                           },
                           icon: const Icon(
                             Icons.search_sharp,
-                            color: Colors.white,
+                           // color: Colors.white,
                           ),
                         ),
                         IconButton(
@@ -100,7 +100,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                           },
                           icon: const Icon(
                             Icons.density_medium_rounded,
-                            color: Colors.white,
+                           // color: Colors.white,
                           ),
                         ),
                       ],
@@ -127,7 +127,8 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                     itemBuilder: (context, index) {
                       AllSong homeSongs = allDbSong[index];
                       RecentlyModel recentSongs;
-                      MostlyModel homeMostlyPlayObj = homeMostPlayed[index];
+                      MostlyModel 
+                      homeMostlyPlayObj = homeMostPlayed[index];
 
                       return Container( 
                         //decoration: conatainerDecoration,
@@ -190,8 +191,8 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                                 context: context,
                                 builder: ((context) {
                                   return Container(
-                                    color:
-                                        const Color.fromARGB(255, 45, 13, 13),
+                                   // color:
+                                      //  const Color.fromARGB(255, 45, 13, 13),
                                     height: mqheight * .15,
                                     child: Column(
                                       mainAxisAlignment:
@@ -210,7 +211,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                                         ),
                                         Divider(
                                           height: mqheight * .01,
-                                          color: whiteColor,
+                                         // color: whiteColor,
                                         ),
                                         InkWell(
                                           onTap: () {},
@@ -231,7 +232,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                             },
                             icon:  Icon(
                               Icons.more_vert_sharp,
-                              color: whiteColor,
+                             // color: whiteColor,
                             ),
                           ),
                         ),

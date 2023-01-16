@@ -41,7 +41,9 @@ class _SplashScreenState extends State<SplashScreen> {
         body: Center(
           child: Text(
             "musiCity",
-            style: GoogleFonts.alexBrush(fontSize: 70, color: whiteColor),
+            style: GoogleFonts.alexBrush(fontSize: 70,
+            // color: whiteColor,
+            ),
           ),
         ),
       ),
@@ -85,6 +87,8 @@ class _SplashScreenState extends State<SplashScreen> {
             mostlySongId: songElement.id,
           ),
         );
+
+        
       }
     }
 

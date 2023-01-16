@@ -28,7 +28,7 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
           builder: (context) {
             return Container(
               height: mqheight * 0.4,
-              color: const Color.fromARGB(255, 45, 13, 13),
+             // color: const Color.fromARGB(255, 45, 13, 13),
               child: ValueListenableBuilder(
                 valueListenable: myPlaylist.listenable(),
                 builder: (BuildContext, Box<PlaylistModel> addfromHomeplay, _) {
@@ -56,7 +56,8 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
                                     onTap: () {},
                                     child: ListTile(
                                       leading: Icon(Icons.library_music_sharp,
-                                          color: whiteColor),
+                                          //color: whiteColor,
+                                          ),
                                       title: Text(
                                         addPlaylistName[index].playlistName,
                                         style: songNameStyle,
@@ -92,7 +93,7 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
                                                 id: totalSongs[widget.songIndex]
                                                     .id),
                                           );
-                                          myPlaylist.putAt(
+                                          myPlaylist.put(
                                             index,
                                             PlaylistModel(
                                                 playlistName:
@@ -114,7 +115,7 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
                                 },
                                 separatorBuilder: (context, index) {
                                   return Divider(
-                                    color: whiteColor,
+                                   // color: whiteColor,
                                     indent: 20,
                                     endIndent: 20,
                                   );

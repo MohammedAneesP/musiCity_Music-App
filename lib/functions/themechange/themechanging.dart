@@ -15,16 +15,16 @@ class MyThemes {
   static final dakTheme = ThemeData(
     backgroundColor: Colors.white,
     scaffoldBackgroundColor: Colors.grey[850],
-    colorScheme: ColorScheme.dark(),
+    colorScheme: const ColorScheme.dark(),
     primaryColor: Colors.black,
-    iconTheme: IconThemeData(color: Colors.white)
+    iconTheme: const IconThemeData(color: Colors.white)
   );
 
   static final lightTheme = ThemeData(
     backgroundColor: Colors.black,
     scaffoldBackgroundColor: Colors.white,
-    colorScheme: ColorScheme.light(),
+    colorScheme: const ColorScheme.light(),
     primaryColor: Colors.white,
-    iconTheme: IconThemeData(color: Colors.black)
+    iconTheme: const IconThemeData(color: Colors.black)
   );
 }

@@ -103,10 +103,10 @@ class _PlaylistCreatedState extends State<PlaylistCreated> {
                               artworkQuality: FilterQuality.high,
                               quality: 100,
                               artworkBorder: BorderRadius.circular(30),
-                              nullArtworkWidget: const CircleAvatar(
+                              nullArtworkWidget: CircleAvatar(
                                 radius: 25,
                                 backgroundImage: AssetImage(
-                                    'assets/pexels-sebastian-ervi-1763075.jpg'),
+                                    leadingImage),
                               ),
                             ),
                             title: Text(
@@ -132,7 +132,7 @@ class _PlaylistCreatedState extends State<PlaylistCreated> {
                                 SnackAddDeleteMsg(
                                     "Removed from playlist", context);
                               },
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.delete_rounded,
                                // color: whiteColor,
                               ),

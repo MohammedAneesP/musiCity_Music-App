@@ -96,7 +96,7 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                           },
                         );
                       },
-                      icon: Icon(
+                      icon:const Icon(
                         Icons.delete,
                        // color: whiteColor,
                       ),),
@@ -123,117 +123,114 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
                       itemBuilder: (context, index) {
                         RecentlyModel recFullSong = allRecentSong[index];
 
-                        return Container(
-                          //decoration: conatainerDecoration,
-                          child: ListTile(
-                            onTap: () {
-                              GestureDetector();
+                        return ListTile(
+                          onTap: () {
+                            GestureDetector();
 
-                              recAudioPlayer.open(
-                                  Playlist(
-                                      audios: recConvertAudio,
-                                      startIndex: index),
-                                  loopMode: LoopMode.playlist,
-                                  showNotification: true,
-                                  headPhoneStrategy:
-                                      HeadPhoneStrategy.pauseOnUnplug);
+                            recAudioPlayer.open(
+                                Playlist(
+                                    audios: recConvertAudio,
+                                    startIndex: index),
+                                loopMode: LoopMode.playlist,
+                                showNotification: true,
+                                headPhoneStrategy:
+                                    HeadPhoneStrategy.pauseOnUnplug);
 
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) => NowPlayingScreeen(
-                                    currentPlayIndex:
-                                        fullSongForRecnly.indexWhere(
-                                      (element) =>
-                                          element.songName ==
-                                          recFullSong.recentSongName,
-                                    ),
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) => NowPlayingScreeen(
+                                  currentPlayIndex:
+                                      fullSongForRecnly.indexWhere(
+                                    (element) =>
+                                        element.songName ==
+                                        recFullSong.recentSongName,
                                   ),
                                 ),
-                              );
-                            },
-                            leading: QueryArtworkWidget(
-                              id: recFullSong.recentId,
-                              type: ArtworkType.AUDIO,
-                              artworkFit: BoxFit.cover,
-                              artworkQuality: FilterQuality.high,
-                              quality: 100,
-                              artworkBorder: BorderRadius.circular(30),
-                              nullArtworkWidget: const CircleAvatar(
-                                radius: 25,
-                                backgroundImage: AssetImage(
-                                    'assets/pexels-sebastian-ervi-1763075.jpg'),
                               ),
+                            );
+                          },
+                          leading: QueryArtworkWidget(
+                            id: recFullSong.recentId,
+                            type: ArtworkType.AUDIO,
+                            artworkFit: BoxFit.cover,
+                            artworkQuality: FilterQuality.high,
+                            quality: 100,
+                            artworkBorder: BorderRadius.circular(30),
+                            nullArtworkWidget: CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage(
+                                  leadingImage),
                             ),
-                            title: Text(
-                              recFullSong.recentSongName,
-                              style: songNameStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            subtitle: Text(
-                              recFullSong.recentArtists,
-                              style: songNameStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            trailing: IconButton(
-                              onPressed: () {
-                                showModalBottomSheet(
-                                  context: context,
-                                  builder: ((context) {
-                                    return Container(
-                                    //  color:
-                                      //    const Color.fromARGB(255, 45, 13, 13),
-                                      height: mqheight * .15,
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {},
-                                            child: SizedBox(
-                                              height: mqheight * .070,
-                                              width: mqwidth * 1,
-                                              child: Center(
-                                                child: AddToFavorite(
-                                                  index: fullSongForRecnly
-                                                      .indexWhere(
-                                                    (element) =>
-                                                        element.id ==
-                                                        allRecentSong[index]
-                                                            .recentId,
-                                                  ),
+                          ),
+                          title: Text(
+                            recFullSong.recentSongName,
+                            style: songNameStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitle: Text(
+                            recFullSong.recentArtists,
+                            style: songNameStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: IconButton(
+                            onPressed: () {
+                              showModalBottomSheet(
+                                context: context,
+                                builder: ((context) {
+                                  return SizedBox(
+                                  //  color:
+                                    //    const Color.fromARGB(255, 45, 13, 13),
+                                    height: mqheight * .15,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        InkWell(
+                                          onTap: () {},
+                                          child: SizedBox(
+                                            height: mqheight * .070,
+                                            width: mqwidth * 1,
+                                            child: Center(
+                                              child: AddToFavorite(
+                                                index: fullSongForRecnly
+                                                    .indexWhere(
+                                                  (element) =>
+                                                      element.id ==
+                                                      allRecentSong[index]
+                                                          .recentId,
                                                 ),
                                               ),
                                             ),
                                           ),
-                                          Divider(
-                                            height: mqheight * .01,
-                                           // color: whiteColor,
-                                          ),
-                                          InkWell(
-                                            onTap: () {},
-                                            child: SizedBox(
-                                              height: mqheight * .070,
-                                              width: mqwidth * 1,
-                                              child: Center(
-                                                child: AddFromHomePlaylist(
-                                                    songIndex: fullSongForRecnly
-                                                        .indexWhere((element) =>
-                                                            element.id ==
-                                                            allRecentSong[index]
-                                                                .recentId)),
-                                              ),
+                                        ),
+                                        Divider(
+                                          height: mqheight * .01,
+                                         // color: whiteColor,
+                                        ),
+                                        InkWell(
+                                          onTap: () {},
+                                          child: SizedBox(
+                                            height: mqheight * .070,
+                                            width: mqwidth * 1,
+                                            child: Center(
+                                              child: AddFromHomePlaylist(
+                                                  songIndex: fullSongForRecnly
+                                                      .indexWhere((element) =>
+                                                          element.id ==
+                                                          allRecentSong[index]
+                                                              .recentId)),
                                             ),
                                           ),
-                                        ],
-                                      ),
-                                    );
-                                  }),
-                                );
-                              },
-                              icon: Icon(
-                                Icons.more_vert_sharp,
-                                //color: whiteColor,
-                              ),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }),
+                              );
+                            },
+                            icon: const Icon(
+                              Icons.more_vert_sharp,
+                              //color: whiteColor,
                             ),
                           ),
                         );

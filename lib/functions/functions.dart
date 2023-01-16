@@ -31,6 +31,9 @@ String areYouSure = "Are you sure..?";
 String yesText = "Yes";
 String noText = "No";
 
+dynamic leadingImage = 'assets/_.jpeg';
+dynamic nowPlayImage = 'assets/Picsart_23-01-15_15-15-28-771.jpg';
+
 class SnackAddDeleteMsg {
   String snackAddDeleteText;
   SnackAddDeleteMsg(this.snackAddDeleteText, context) {

@@ -106,7 +106,7 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                           },
                         );
                   },
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.delete,
                    // color: whiteColor,
                   ),
@@ -118,6 +118,7 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
             child: SizedBox(
               child: ValueListenableBuilder(
                 valueListenable: mostlyPlayedBox.listenable(),
+                // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                 builder: (BuildContext, Box<MostlyModel> mostlyScreenList, _) {
                   if (mostlyScreenSongs.isEmpty) {
                     return Center(
@@ -163,10 +164,10 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                               artworkQuality: FilterQuality.high,
                               quality: 100,
                               artworkBorder: BorderRadius.circular(30),
-                              nullArtworkWidget: const CircleAvatar(
+                              nullArtworkWidget:  CircleAvatar(
                                 radius: 25,
                                 backgroundImage: AssetImage(
-                                    'assets/pexels-sebastian-ervi-1763075.jpg'),
+                                    leadingImage),
                               ),
                             ),
                             title: Text(

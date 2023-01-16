@@ -26,7 +26,7 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
         await showModalBottomSheet(
           context: context,
           builder: (context) {
-            return Container(
+            return SizedBox(
               height: mqheight * 0.4,
              // color: const Color.fromARGB(255, 45, 13, 13),
               child: ValueListenableBuilder(
@@ -55,7 +55,7 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
                                   return InkWell(
                                     onTap: () {},
                                     child: ListTile(
-                                      leading: Icon(Icons.library_music_sharp,
+                                      leading: const Icon(Icons.library_music_sharp,
                                           //color: whiteColor,
                                           ),
                                       title: Text(
@@ -114,7 +114,7 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
                                   );
                                 },
                                 separatorBuilder: (context, index) {
-                                  return Divider(
+                                  return const Divider(
                                    // color: whiteColor,
                                     indent: 20,
                                     endIndent: 20,

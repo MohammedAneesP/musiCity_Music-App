@@ -51,7 +51,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Icon(
+                      icon:const Icon(
                         Icons.arrow_back_rounded,
                         size: 25,
                        // color: whiteColor,
@@ -110,13 +110,13 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                               nullArtworkWidget: Container(
                                 height: mqheight * 0.35,
                                 width: mqwidth * 0.7,
-                                decoration: const BoxDecoration(
+                                decoration:  BoxDecoration(
                                   image: DecorationImage(
                                     image: AssetImage(
-                                        'assets/pexels-sebastian-ervi-1763075.jpg'),
+                                        nowPlayImage),
                                     fit: BoxFit.cover,
                                   ),
-                                  borderRadius: BorderRadius.all(
+                                  borderRadius:const BorderRadius.all(
                                     Radius.circular(6),
                                   ),
                                 ),
@@ -139,7 +139,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                     const Duration(seconds: -10),
                                   );
                                 },
-                                icon: Icon(
+                                icon:const Icon(
                                   Icons.replay_10_rounded,
                                   size: 30,
                                   //color: whiteColor,
@@ -164,7 +164,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                   await player
                                       .seekBy(const Duration(seconds: 10));
                                 },
-                                icon: Icon(
+                                icon:const Icon(
                                   Icons.forward_10_rounded,
                                   size: 30,
                                  // color: whiteColor,
@@ -290,7 +290,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                   }
                                 },
                           icon: playing.index == 0
-                              ? Icon(
+                              ?const Icon(
                                   Icons.skip_previous_rounded,
                                   color: Color.fromARGB(255, 94, 93, 93),
                                   size: 35,

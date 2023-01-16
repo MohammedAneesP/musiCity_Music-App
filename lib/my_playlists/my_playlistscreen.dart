@@ -151,7 +151,7 @@ class _MyPlaylistState extends State<MyPlaylist> {
                               style: songNameStyle,
                             ),
                             trailing: PopupMenuButton(
-                              icon: Icon(
+                              icon: const Icon(
                                 Icons.more_vert_sharp,
                                 //color: whiteColor,
                               ),

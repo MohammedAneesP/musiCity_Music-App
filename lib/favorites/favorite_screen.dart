@@ -1,6 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
@@ -88,69 +87,66 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
                               ),
                             );
                           },
-                          child: Container(
-                            //decoration: conatainerDecoration,
-                            child: ListTile(
-                              leading: QueryArtworkWidget(
-                                id: favSongList.favSongId,
-                                type: ArtworkType.AUDIO,
-                                artworkFit: BoxFit.cover,
-                                artworkQuality: FilterQuality.high,
-                                quality: 100,
-                                artworkBorder: BorderRadius.circular(30),
-                                nullArtworkWidget: const CircleAvatar(
-                                  radius: 25,
-                                  backgroundImage: AssetImage(
-                                      'assets/pexels-sebastian-ervi-1763075.jpg'),
-                                ),
+                          child: ListTile(
+                            leading: QueryArtworkWidget(
+                              id: favSongList.favSongId,
+                              type: ArtworkType.AUDIO,
+                              artworkFit: BoxFit.cover,
+                              artworkQuality: FilterQuality.high,
+                              quality: 100,
+                              artworkBorder: BorderRadius.circular(30),
+                              nullArtworkWidget: CircleAvatar(
+                                radius: 25,
+                                backgroundImage: AssetImage(
+                                    leadingImage),
                               ),
-                              title: Text(
-                                favSongList.favSongName,
-                                style: songNameStyle,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              subtitle: Text(
-                                favSongList.favSongArtist,
-                                style: songNameStyle,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              trailing: IconButton(
-                                onPressed: () {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      return AlertDialog(
-                                        title:
-                                            const Text("Remove this Song..."),
-                                        content: const Text("Are you Sure..?"),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () {
-                                              Navigator.pop(context);
-                                            },
-                                            child: const Text("Cancel"),
-                                          ),
-                                          TextButton(
-                                            onPressed: () {
-                                              setState(
-                                                () {
-                                                  favConvertAudio.removeAt(index);
-                                                  favoriteSong.deleteAt(index);
-                                                  Navigator.pop(context);
-                                                },
-                                              );
-                                            },
-                                            child: const Text("Yes"),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                icon: const Icon(
-                                  Icons.delete,
-                                  color: Colors.white70,
-                                ),
+                            ),
+                            title: Text(
+                              favSongList.favSongName,
+                              style: songNameStyle,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            subtitle: Text(
+                              favSongList.favSongArtist,
+                              style: songNameStyle,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            trailing: IconButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      title:
+                                          const Text("Remove this Song..."),
+                                      content: const Text("Are you Sure..?"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: const Text("Cancel"),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            setState(
+                                              () {
+                                                favConvertAudio.removeAt(index);
+                                                favoriteSong.deleteAt(index);
+                                                Navigator.pop(context);
+                                              },
+                                            );
+                                          },
+                                          child: const Text("Yes"),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.white70,
                               ),
                             ),
                           ),

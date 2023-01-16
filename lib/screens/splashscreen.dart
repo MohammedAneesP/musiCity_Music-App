@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:musi_city/functions/box_opening.dart';
-import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/main.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/models/mostly_model.dart';
 import 'package:musi_city/screens/bottom_nav.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -33,19 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(
-            image: AssetImage('assets/pexels-sebastian-ervi-1763075.jpg'),
+            image: AssetImage('assets/Picsart_23-01-15_15-15-28-771.jpg'),
             fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.transparent,
-        body: Center(
-          child: Text(
-            "musiCity",
-            style: GoogleFonts.alexBrush(fontSize: 70,
-            // color: whiteColor,
-            ),
-          ),
-        ),
       ),
     );
   }
@@ -87,8 +74,6 @@ class _SplashScreenState extends State<SplashScreen> {
             mostlySongId: songElement.id,
           ),
         );
-
-        
       }
     }
 

@@ -6,6 +6,7 @@ import '../main.dart';
 import '../models/home_models.dart';
 import '../models/playlist_model.dart';
 
+// ignore: must_be_immutable
 class AddFromNowPlay extends StatefulWidget {
   int songIndex;
   AddFromNowPlay({super.key, required this.songIndex});
@@ -50,7 +51,7 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
                                 return InkWell(
                                   onTap: () {},
                                   child: ListTile(
-                                    leading: Icon(Icons.library_music_sharp,
+                                    leading: const Icon(Icons.library_music_sharp,
                                        // color: whiteColor,
                                         ),
                                     title: Text(
@@ -107,7 +108,7 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
                                 );
                               },
                               separatorBuilder: (context, index) {
-                                return Divider(
+                                return const Divider(
                                   thickness: 1,
                                  // color: whiteColor,
                                 );
@@ -124,7 +125,7 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
         );
         
       },
-      icon: Icon(
+      icon: const Icon(
         Icons.add,
        // color: whiteColor,
         size: 30,

@@ -60,7 +60,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
             //color: musiCityBgColor,
             height: mqheight * .04,
           ),
-          Container(
+          SizedBox(
             // decoration: conatainerDecoration,
             height: mqheight * 0.08,
             child: Padding(
@@ -114,6 +114,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
             child: SizedBox(
               child: ValueListenableBuilder<Box<AllSong>>(
                 valueListenable: allSongList.listenable(),
+                // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                 builder: (BuildContext, Box<AllSong> fullSongList, child) {
                   List<AllSong> allDbSong = fullSongList.values.toList();
                   List<MostlyModel>homeMostPlayed = mostlyPlayedBox.values.toList();
@@ -130,110 +131,107 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                       MostlyModel 
                       homeMostlyPlayObj = homeMostPlayed[index];
 
-                      return Container( 
-                        //decoration: conatainerDecoration,
-                        child: ListTile(
-                          onTap: () {
-                            GestureDetector();
-                            _audioPlayers.open(
-                                Playlist(
-                                  audios: convertAudios,
-                                  startIndex: index,
-                                ),
-                                showNotification: true,
-                                headPhoneStrategy:
-                                    HeadPhoneStrategy.pauseOnUnplug,
-                                loopMode: LoopMode.playlist);
-                            recentSongs = RecentlyModel(
-                              recentSongName: homeSongs.songName,
-                              recentArtists: homeSongs.artists,
-                              recentDuration: homeSongs.duration,
-                              recentSongurl: homeSongs.songurl,
-                              recentId: homeSongs.id,
-                            );
-                            updateRecentlyPlayed(recentSongs, index);
-                           updateMostlyPlayed(index, homeMostlyPlayObj); 
-                            setState(() {});
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) => NowPlayingScreeen(
-                                  currentPlayIndex: index,
-                                ),
+                      return ListTile(
+                        onTap: () {
+                          GestureDetector();
+                          _audioPlayers.open(
+                              Playlist(
+                                audios: convertAudios,
+                                startIndex: index,
                               ),
+                              showNotification: true,
+                              headPhoneStrategy:
+                                  HeadPhoneStrategy.pauseOnUnplug,
+                              loopMode: LoopMode.playlist);
+                          recentSongs = RecentlyModel(
+                            recentSongName: homeSongs.songName,
+                            recentArtists: homeSongs.artists,
+                            recentDuration: homeSongs.duration,
+                            recentSongurl: homeSongs.songurl,
+                            recentId: homeSongs.id,
+                          );
+                          updateRecentlyPlayed(recentSongs, index);
+                         updateMostlyPlayed(index, homeMostlyPlayObj); 
+                          setState(() {});
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => NowPlayingScreeen(
+                                currentPlayIndex: index,
+                              ),
+                            ),
+                          );
+                        },
+                        leading: QueryArtworkWidget(
+                          id: homeSongs.id,
+                          type: ArtworkType.AUDIO,
+                          artworkFit: BoxFit.cover,
+                          artworkQuality: FilterQuality.high,
+                          quality: 100,
+                          artworkBorder: BorderRadius.circular(30),
+                          nullArtworkWidget:  CircleAvatar(
+                            radius: 25,
+                            backgroundImage: AssetImage(
+                                leadingImage),
+                          ),
+                        ),
+                        title: Text(
+                          homeSongs.songName,
+                          overflow: TextOverflow.ellipsis,
+                          style: songNameStyle,
+                        ),
+                        subtitle: Text(
+                          homeSongs.artists,
+                          overflow: TextOverflow.ellipsis,
+                          style: songNameStyle,
+                        ),
+                        trailing: IconButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              context: context,
+                              builder: ((context) {
+                                return SizedBox(
+                                 // color:
+                                    //  const Color.fromARGB(255, 45, 13, 13),
+                                  height: mqheight * .15,
+                                  child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.center,
+                                    children: [
+                                      InkWell(
+                                        onTap: () {},
+                                        child: SizedBox(
+                                          height: mqheight * .070,
+                                          width: mqwidth * 1,
+                                          child: Center(
+                                            child:
+                                                AddToFavorite(index: index),
+                                          ),
+                                        ),
+                                      ),
+                                      Divider(
+                                        height: mqheight * .01,
+                                       // color: whiteColor,
+                                      ),
+                                      InkWell(
+                                        onTap: () {},
+                                        child: SizedBox(
+                                          height: mqheight * .070,
+                                          width: mqwidth * 1,
+                                          child: Center(
+                                            child: AddFromHomePlaylist(
+                                                songIndex: index),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }),
                             );
                           },
-                          leading: QueryArtworkWidget(
-                            id: homeSongs.id,
-                            type: ArtworkType.AUDIO,
-                            artworkFit: BoxFit.cover,
-                            artworkQuality: FilterQuality.high,
-                            quality: 100,
-                            artworkBorder: BorderRadius.circular(30),
-                            nullArtworkWidget: const CircleAvatar(
-                              radius: 25,
-                              backgroundImage: AssetImage(
-                                  'assets/pexels-sebastian-ervi-1763075.jpg'),
-                            ),
-                          ),
-                          title: Text(
-                            homeSongs.songName,
-                            overflow: TextOverflow.ellipsis,
-                            style: songNameStyle,
-                          ),
-                          subtitle: Text(
-                            homeSongs.artists,
-                            overflow: TextOverflow.ellipsis,
-                            style: songNameStyle,
-                          ),
-                          trailing: IconButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                context: context,
-                                builder: ((context) {
-                                  return Container(
-                                   // color:
-                                      //  const Color.fromARGB(255, 45, 13, 13),
-                                    height: mqheight * .15,
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            height: mqheight * .070,
-                                            width: mqwidth * 1,
-                                            child: Center(
-                                              child:
-                                                  AddToFavorite(index: index),
-                                            ),
-                                          ),
-                                        ),
-                                        Divider(
-                                          height: mqheight * .01,
-                                         // color: whiteColor,
-                                        ),
-                                        InkWell(
-                                          onTap: () {},
-                                          child: SizedBox(
-                                            height: mqheight * .070,
-                                            width: mqwidth * 1,
-                                            child: Center(
-                                              child: AddFromHomePlaylist(
-                                                  songIndex: index),
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  );
-                                }),
-                              );
-                            },
-                            icon:  Icon(
-                              Icons.more_vert_sharp,
-                             // color: whiteColor,
-                            ),
+                          icon:  const Icon(
+                            Icons.more_vert_sharp,
+                           // color: whiteColor,
                           ),
                         ),
                       );
@@ -253,44 +251,6 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
   }
 }
 
-List listOfTitles = [
-  "Track 1",
-  "Track 2",
-  "Track 3",
-  "Track 4",
-  "Track 5",
-  "Track 6",
-  "Track 7",
-  "Track 8",
-  "Track 9",
-  "Track 10",
-  "Track 11",
-  "Track 12",
-  "Track 13",
-  "Track 14",
-  "Track 15",
-];
 
-List listOfSubTitles = [
-  "Singer1",
-  "Singer2",
-  "Singer3",
-  "Singer4",
-  "Singer5",
-  "Singer6",
-  "Singer7",
-  "Singer8",
-  "Singer9",
-  "Singer10",
-  "Singer11",
-  "Singer12",
-  "Singer13",
-  "Singer14",
-  "Singer15",
-];
 
-List listOfplayList = [
-  "Playlist1",
-  "Playlist2",
-  "Playlist3",
-];
+

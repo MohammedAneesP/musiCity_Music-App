@@ -77,10 +77,10 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                               artworkFit: BoxFit.cover,
                               artworkBorder: BorderRadius.circular(70),
                               artworkQuality: FilterQuality.high,
-                              nullArtworkWidget: const CircleAvatar(
+                              nullArtworkWidget: CircleAvatar(
                                 radius: 28,
                                 backgroundImage: AssetImage(
-                                    'assets/pexels-sebastian-ervi-1763075.jpg'),
+                                    leadingImage),
                               ),
                             ),
                           ),
@@ -90,7 +90,7 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                             child: ListTile(
                               title: Text(
                                 player.getCurrentAudioTitle,
-                                style: TextStyle(
+                                style: const TextStyle(
                                   //  color: whiteColor,
                                     overflow: TextOverflow.ellipsis),
                               ),
@@ -142,7 +142,7 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                                   size: 30,
                                   color: Color.fromARGB(255, 134, 130, 130),
                                 )
-                              : Icon(
+                              : const Icon(
                                   Icons.skip_previous_rounded,
                                   size: 30,
                                   //color: whiteColor,
@@ -208,7 +208,7 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                                   Icons.skip_next_rounded,
                                   color: Colors.white30,
                                 )
-                              :  Icon(
+                              :  const Icon(
                                   Icons.skip_next_rounded,
                                   //color: whiteColor,
                                 ),

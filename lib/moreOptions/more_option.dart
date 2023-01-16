@@ -1,6 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/functions/themechange/themebutton.dart';
 import 'package:musi_city/moreOptions/privacypolicy.dart';
@@ -63,7 +62,7 @@ class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => TermsAndConditions(),
+                      builder: (context) => const TermsAndConditions(),
                     ));
                   },
                   child: ListTile(
@@ -77,7 +76,7 @@ class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
                 InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => PrivacyAndPolicy(),
+                      builder: (context) => const PrivacyAndPolicy(),
                     ));
                   },
                   child: ListTile(
@@ -90,7 +89,9 @@ class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
                   child: ListTile(
                     title: Text(listOfOptiions[2], style: songNameStyle),
                     trailing: SwitcherButton(
-                      size: 35,
+                      offColor: Colors.grey,
+                      onColor: Colors.blue,
+                      size: 40,
                       value: true,
                       onChange: (value) {
                         moreAudioplayer.showNotification == musicNotify;
@@ -105,14 +106,58 @@ class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
                       listOfOptiions[3],
                       style: songNameStyle,
                     ),
-                    trailing: ChangeThemeButton(),
+                    trailing: const ChangeThemeButton(),
                   ),
-                )
+                ),
+                InkWell(
+                  onTap: () {
+                    aboutPopUp();
+                  },
+                  child: ListTile(
+                    title: Text(
+                      listOfOptiions[4],
+                      style: songNameStyle,
+                    ),
+                    trailing: listOfOptionsIcons[1],
+                  ),
+                ),
               ],
             ),
+          ),
+          SizedBox(
+            height: mqheight * 0.3,
+          ),
+          const Text("Version"),
+          SizedBox(
+            height: mqheight * 0.005,
+          ),
+          const Text(
+            "1.0.0",
+            style: TextStyle(fontSize: 12),
           )
         ],
       ),
+    );
+  }
+
+  aboutPopUp() {
+    showAboutDialog(
+      context: context,
+      applicationName: 'musiCity',
+      applicationIcon: Image.asset(
+        'assets/_.jpeg',
+        height: 40,
+        width: 40,
+      ),
+      applicationVersion: "1.0.0",
+      children: [
+        const Text(
+            "musiCity is an offline music player app which allows use to hear music from their storage and also do functions like add to favorites , create playlists , recently played , mostly played etc."),
+        heightGapSizedBox(context),
+        const Text('''App developed by :
+
+Mohammed Anees''')
+      ],
     );
   }
 }
@@ -121,7 +166,7 @@ List listOfOptiions = [
   "Terms and Conditions",
   "Privacy and Policy",
   "Notifications",
-  "Select Theme",
+  "Light & Dark theme",
   "About",
 ];
 

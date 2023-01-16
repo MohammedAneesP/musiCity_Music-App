@@ -1,15 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:musi_city/functions/functions.dart';
 
 
 class TermsAndConditions extends StatelessWidget {
-  TermsAndConditions({super.key});
+  const TermsAndConditions({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final mqheight = MediaQuery.of(context).size.height;
-    final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
      // backgroundColor: musiCityBgColor,

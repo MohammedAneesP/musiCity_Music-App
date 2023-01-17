@@ -62,7 +62,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
           ),
           SizedBox(
             // decoration: conatainerDecoration,
-            height: mqheight * 0.1,
+            height: mqheight * 0.09,
             child: Padding(
               padding: EdgeInsets.fromLTRB(mqwidth * 0.04, 0, 0, 0),
               child: Row(

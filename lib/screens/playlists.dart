@@ -18,9 +18,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-     // backgroundColor: musiCityBgColor,
-      
-            body: Column(
+      // backgroundColor: musiCityBgColor,
+
+      body: Column(
         children: [
           Padding(
             padding:
@@ -35,7 +35,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           ),
           InkWell(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>const MostlyPlayedScreen(),));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const MostlyPlayedScreen(),
+              ));
             },
             child: ListTile(
               title: Text(
@@ -47,7 +49,9 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           ),
           InkWell(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) =>const RecentlyPlayedScreen(),));
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const RecentlyPlayedScreen(),
+              ));
             },
             child: ListTile(
               title: Text(
@@ -78,5 +82,8 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
 }
 
 Widget rightArrow() {
-  return const Icon(Icons.chevron_right_sharp,color: Colors.white,);
+  return const Icon(
+    Icons.chevron_right_sharp,
+    //color: Colors.white,
+  );
 }

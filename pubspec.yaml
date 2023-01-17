@@ -82,6 +82,10 @@ flutter:
    - assets/pikrepo (1).jpg
    - assets/_.jpeg
    - assets/Picsart_23-01-15_15-15-28-771.jpg
+   - assets/Picsart_23-01-16_20-20-47-555.png
+   - assets/playlists.png
+   - assets/mostly.png
+   - assets/favorites.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 

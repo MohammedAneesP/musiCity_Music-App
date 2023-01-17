@@ -53,7 +53,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
     return Scaffold(
-     // backgroundColor: musiCityBgColor,
+      // backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           Container(
@@ -62,19 +62,25 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
           ),
           SizedBox(
             // decoration: conatainerDecoration,
-            height: mqheight * 0.08,
+            height: mqheight * 0.1,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(mqwidth * 0.05, 0, 0, 0),
+              padding: EdgeInsets.fromLTRB(mqwidth * 0.04, 0, 0, 0),
               child: Row(
                 children: [
-                  Text(
-                    "musiCity",
-                    style: GoogleFonts.alexBrush(
-                        fontSize: 60, ),
+                  Container(
+                    height: mqheight * 0.22,
+                    width: mqwidth * 0.54,
+                    decoration: const BoxDecoration(
+                        // color: Colors.amber,
+                        image: DecorationImage(
+                            image: AssetImage(
+                              'assets/Picsart_23-01-16_20-20-47-555.png',
+                            ),
+                            fit: BoxFit.cover)),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(
-                        mqwidth * .17, mqheight * 0.02, 0, 0),
+                        mqwidth * .15, mqheight * 0.02, 0, 0),
                     child: Row(
                       children: [
                         IconButton(
@@ -87,7 +93,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                           },
                           icon: const Icon(
                             Icons.search_sharp,
-                           // color: Colors.white,
+                            // color: Colors.white,
                           ),
                         ),
                         IconButton(
@@ -100,7 +106,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                           },
                           icon: const Icon(
                             Icons.density_medium_rounded,
-                           // color: Colors.white,
+                            // color: Colors.white,
                           ),
                         ),
                       ],
@@ -117,7 +123,8 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                 // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                 builder: (BuildContext, Box<AllSong> fullSongList, child) {
                   List<AllSong> allDbSong = fullSongList.values.toList();
-                  List<MostlyModel>homeMostPlayed = mostlyPlayedBox.values.toList();
+                  List<MostlyModel> homeMostPlayed =
+                      mostlyPlayedBox.values.toList();
 
                   if (allDbSong.isEmpty) {
                     return const Text("NO data");
@@ -128,8 +135,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                     itemBuilder: (context, index) {
                       AllSong homeSongs = allDbSong[index];
                       RecentlyModel recentSongs;
-                      MostlyModel 
-                      homeMostlyPlayObj = homeMostPlayed[index];
+                      MostlyModel homeMostlyPlayObj = homeMostPlayed[index];
 
                       return ListTile(
                         onTap: () {
@@ -151,7 +157,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                             recentId: homeSongs.id,
                           );
                           updateRecentlyPlayed(recentSongs, index);
-                         updateMostlyPlayed(index, homeMostlyPlayObj); 
+                          updateMostlyPlayed(index, homeMostlyPlayObj);
                           setState(() {});
                           Navigator.of(context).push(
                             MaterialPageRoute(
@@ -168,10 +174,9 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                           artworkQuality: FilterQuality.high,
                           quality: 100,
                           artworkBorder: BorderRadius.circular(30),
-                          nullArtworkWidget:  CircleAvatar(
+                          nullArtworkWidget: CircleAvatar(
                             radius: 25,
-                            backgroundImage: AssetImage(
-                                leadingImage),
+                            backgroundImage: AssetImage(leadingImage),
                           ),
                         ),
                         title: Text(
@@ -190,12 +195,11 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                               context: context,
                               builder: ((context) {
                                 return SizedBox(
-                                 // color:
-                                    //  const Color.fromARGB(255, 45, 13, 13),
+                                  // color:
+                                  //  const Color.fromARGB(255, 45, 13, 13),
                                   height: mqheight * .15,
                                   child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       InkWell(
                                         onTap: () {},
@@ -203,14 +207,13 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                                           height: mqheight * .070,
                                           width: mqwidth * 1,
                                           child: Center(
-                                            child:
-                                                AddToFavorite(index: index),
+                                            child: AddToFavorite(index: index),
                                           ),
                                         ),
                                       ),
                                       Divider(
                                         height: mqheight * .01,
-                                       // color: whiteColor,
+                                        // color: whiteColor,
                                       ),
                                       InkWell(
                                         onTap: () {},
@@ -229,9 +232,9 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                               }),
                             );
                           },
-                          icon:  const Icon(
+                          icon: const Icon(
                             Icons.more_vert_sharp,
-                           // color: whiteColor,
+                            // color: whiteColor,
                           ),
                         ),
                       );
@@ -250,7 +253,3 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
     );
   }
 }
-
-
-
-

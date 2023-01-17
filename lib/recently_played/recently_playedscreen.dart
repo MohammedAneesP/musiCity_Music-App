@@ -52,55 +52,55 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
       body: Column(
         children: [
           SizedBox(
-            height: mqheight * .05,
+            height: mqheight * .045,
           ),
           SizedBox(
-            height: mqheight * 0.05,
+            height: mqheight * 0.1,
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(mqwidth * 0.05, 0, mqwidth * 0.05, 0),
-                  child: Text(
-                    "Recently Played",
-                    style: headingStyle,
-                  ),
+                Container(
+                   height: mqheight * 0.29,
+                width: mqwidth * 0.83,
+                decoration: const BoxDecoration(
+                  //color: Colors.amber,
+                  image: DecorationImage(
+                      image: AssetImage('assets/recently.png'),
+                      fit: BoxFit.cover),
                 ),
-                Padding(
-                  padding: EdgeInsets.fromLTRB(mqwidth * 0.0, 0, 0, 0),
-                  child: IconButton(
-                      onPressed: () {
-                        showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text(
-                                  "Do you want to delete whole recent songs..?"),
-                              content: const Text("Are you Sure..."),
-                              actions: [
-                                TextButton(
+                ),
+                IconButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            title: const Text(
+                                "Do you want to delete whole recent songs..?"),
+                            content: const Text("Are you Sure..."),
+                            actions: [
+                              TextButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Cancel"),
+                              ),
+                              TextButton(
                                   onPressed: () {
+                                    recentlyPlayedBox.clear();
+                                    setState(() {});
                                     Navigator.pop(context);
                                   },
-                                  child: const Text("Cancel"),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      recentlyPlayedBox.clear();
-                                      setState(() {});
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Yes"))
-                              ],
-                            );
-                          },
-                        );
-                      },
-                      icon:const Icon(
-                        Icons.delete,
-                       // color: whiteColor,
-                      ),),
-                )
+                                  child: const Text("Yes"))
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    icon:const Icon(
+                      Icons.delete,
+                     // color: whiteColor,
+                    ),)
               ],
             ),
           ),

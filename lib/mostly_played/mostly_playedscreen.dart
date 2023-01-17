@@ -30,7 +30,7 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
     fullSongForMostly = allSongList.values.toList();
     List<MostlyModel> msPldSongList = mostlyPlayedBox.values.toList();
 
-   // log(msPldSongList.toString());
+    // log(msPldSongList.toString());
 
     for (var oneSong in msPldSongList) {
       if (oneSong.songCount >= 3) {
@@ -61,54 +61,61 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-    //  backgroundColor: musiCityBgColor,
+      //  backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           SizedBox(
             height: mqheight * .05,
           ),
           SizedBox(
-            height: mqheight * 0.05,
+            height: mqheight * 0.1,
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Text(
-                  "Mostly Played",
-                  style: headingStyle,
-                ),SizedBox(
-                  width: mqwidth*0.08,
+                Container(
+                  height: mqheight * 0.28,
+                  width: mqwidth * 0.815,
+                  decoration: const BoxDecoration(
+                  //  color: Colors.amber,
+                    image: DecorationImage(
+                        image: AssetImage('assets/mostly.png'),
+                        fit: BoxFit.cover),
+                  ),
+                ),
+                SizedBox(
+                  width: mqwidth * 0.06,
                 ),
                 IconButton(
                   onPressed: () {
                     showDialog(
-                          context: context,
-                          builder: (context) {
-                            return AlertDialog(
-                              title: const Text(
-                                  "Do you want to clear all songs..?"),
-                              content: const Text("Are you Sure..."),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("Cancel"),
-                                ),
-                                TextButton(
-                                    onPressed: () {
-                                      mostlyScreenSongs.clear();
-                                      setState(() {});
-                                      Navigator.pop(context);
-                                    },
-                                    child: const Text("Yes"))
-                              ],
-                            );
-                          },
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title:
+                              const Text("Do you want to clear all songs..?"),
+                          content: const Text("Are you Sure..."),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Cancel"),
+                            ),
+                            TextButton(
+                                onPressed: () {
+                                  mostlyScreenSongs.clear();
+                                  setState(() {});
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("Yes"))
+                          ],
                         );
+                      },
+                    );
                   },
                   icon: const Icon(
                     Icons.delete,
-                   // color: whiteColor,
+                    // color: whiteColor,
                   ),
                 ),
               ],
@@ -164,10 +171,9 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                               artworkQuality: FilterQuality.high,
                               quality: 100,
                               artworkBorder: BorderRadius.circular(30),
-                              nullArtworkWidget:  CircleAvatar(
+                              nullArtworkWidget: CircleAvatar(
                                 radius: 25,
-                                backgroundImage: AssetImage(
-                                    leadingImage),
+                                backgroundImage: AssetImage(leadingImage),
                               ),
                             ),
                             title: Text(

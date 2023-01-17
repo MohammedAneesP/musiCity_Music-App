@@ -24,7 +24,7 @@ dynamic conatainerDecoration = BoxDecoration(
   ],
 );
 
-final defaultTextStyle = GoogleFonts.biryani(fontSize: 30, );
+final defaultTextStyle = GoogleFonts.biryani(fontSize: 25, );
 final headingStyle = GoogleFonts.seymourOne(fontSize: 25,fontWeight: FontWeight.w800);
 final songNameStyle = GoogleFonts.rowdies();
 String areYouSure = "Are you sure..?";

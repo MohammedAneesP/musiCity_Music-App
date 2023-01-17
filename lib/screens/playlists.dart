@@ -25,13 +25,17 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           Padding(
             padding:
                 EdgeInsets.fromLTRB(mqwidth * 0.005, mqheight * 0.05, 0, 0),
-            child: Text(
-              "Playlist's",
-              style: headingStyle,
+            child: Container(
+              height: mqheight * 0.1,
+              width: mqwidth * 0.8,
+              decoration: const BoxDecoration(
+                //  color: Colors.amber,
+                image: DecorationImage(
+                  image: AssetImage('assets/playlist.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
-          ),
-          SizedBox(
-            height: mqheight * 0.05,
           ),
           InkWell(
             onTap: () {

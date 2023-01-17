@@ -48,9 +48,17 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         children: [
           Padding(
             padding: EdgeInsets.fromLTRB(mqwidth * 0.05, mqheight * 0.05, 0, 0),
-            child: Text(
-              "Favorite's",
-              style: headingStyle,
+            child: Container(
+               height: mqheight * 0.1,
+              width: mqwidth * 0.8,
+              decoration: const BoxDecoration(
+                //  color: Colors.amber,
+                image: DecorationImage(
+                  image: AssetImage('assets/favorite.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              
             ),
           ),
           Expanded(

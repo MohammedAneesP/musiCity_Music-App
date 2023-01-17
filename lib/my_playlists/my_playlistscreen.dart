@@ -102,10 +102,17 @@ class _MyPlaylistState extends State<MyPlaylist> {
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(mqwidth * 0.0, mqheight * 0.05, 0, 0),
-            child: Text(
-              "My Playlist's",
-              style: headingStyle,
+            padding: EdgeInsets.fromLTRB(0,mqheight*0.033, 0, 0),
+            child: Container(
+              height: mqheight * 0.1,
+              width: mqwidth * 0.8,
+              decoration: const BoxDecoration(
+                 // color: Colors.amber,
+                image: DecorationImage(
+                  image: AssetImage('assets/myplaylist.png'),
+                  fit: BoxFit.cover,
+                ),
+              ),
             ),
           ),
           SizedBox(

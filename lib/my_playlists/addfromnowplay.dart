@@ -25,7 +25,7 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
         await showModalBottomSheet(
           context: context,
           builder: (context) {
-            return Container(
+            return SizedBox(
               height: mqheight * 0.4,
               //color: const Color.fromARGB(255, 45, 13, 13),
               child: Column(

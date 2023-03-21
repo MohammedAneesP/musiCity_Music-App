@@ -42,20 +42,17 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider(
       create: (context) => ThemeProvider(),
       builder: (context, child) {
-
         final themeProvider = Provider.of<ThemeProvider>(context);
 
-        return  MaterialApp(
-        title: "musiCity",
-        
-        themeMode: themeProvider.themeMode,
-        theme: MyThemes.lightTheme,
-        darkTheme: MyThemes.dakTheme,
-        home: const SplashScreen(),
-        debugShowCheckedModeBanner: false,
-      );
+        return MaterialApp(
+          title: "musiCity",
+          themeMode: themeProvider.themeMode,
+          theme: MyThemes.lightTheme,
+          darkTheme: MyThemes.dakTheme,
+          home: const SplashScreen(),
+          debugShowCheckedModeBanner: false,
+        );
       },
-      //dtrtesejldkfj;lks
     );
   }
 }

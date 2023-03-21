@@ -1,4 +1,4 @@
-// ignore_for_file: must_be_immutable
+// ignore_for_file: must_be_immutable, avoid_types_as_parameter_names, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/adapters.dart';
@@ -31,6 +31,7 @@ class _AddFromHomePlaylistState extends State<AddFromHomePlaylist> {
              // color: const Color.fromARGB(255, 45, 13, 13),
               child: ValueListenableBuilder(
                 valueListenable: myPlaylist.listenable(),
+                // ignore: non_constant_identifier_names
                 builder: (BuildContext, Box<PlaylistModel> addfromHomeplay, _) {
                   List<PlaylistModel> addPlaylistName =
                       addfromHomeplay.values.toList();

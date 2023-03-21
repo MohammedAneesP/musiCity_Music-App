@@ -248,29 +248,3 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
     );
   }
 }
-
-// List listOfRecentlyTitles = [
-//   "Track 1",
-//   "Track 2",
-//   "Track 4",
-//   "Track 5",
-//   "Track 7",
-//   "Track 8",
-//   "Track 9",
-//   "Track 10",
-//   "Track 11",
-//   "Track 13",
-// ];
-
-// List listOfRecentlySubTitles = [
-//   "Singer1",
-//   "Singer2",
-//   "Singer4",
-//   "Singer5",
-//   "Singer7",
-//   "Singer8",
-//   "Singer9",
-//   "Singer10",
-//   "Singer11",
-//   "Singer13",
-// ];

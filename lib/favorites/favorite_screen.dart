@@ -174,18 +174,4 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   }
 }
 
-List listOfFavoriteSong = [
-  "Track 1",
-  "Track 2",
-  "Track 3",
-  "Track 4",
-  "Track 5",
-];
 
-List listofFavritSongSubtitle = [
-  "Artist 1",
-  "Artist 2",
-  "Artist 3",
-  "Artist 4",
-  "Artist 5",
-];

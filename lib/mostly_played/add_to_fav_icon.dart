@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/main.dart';

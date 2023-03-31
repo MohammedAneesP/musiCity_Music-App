@@ -76,8 +76,6 @@ class _SplashScreenState extends State<SplashScreen> {
         );
       }
     }
-
-    // setState(() {});
   }
 
   Future gotoHomeScreen(context) async {

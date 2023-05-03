@@ -1,7 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:musi_city/functions/functions.dart';
-import 'package:musi_city/functions/themechange/themebutton.dart';
 import 'package:musi_city/moreOptions/privacypolicy.dart';
 import 'package:musi_city/moreOptions/terms&conditions.dart';
 import 'package:switcher_button/switcher_button.dart';
@@ -99,16 +98,16 @@ class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: ListTile(
-                    title: Text(
-                      listOfOptiions[3],
-                      style: songNameStyle,
-                    ),
-                    trailing: const ChangeThemeButton(),
-                  ),
-                ),
+                // InkWell(
+                //   onTap: () {},
+                //   child: ListTile(
+                //     title: Text(
+                //       listOfOptiions[3],
+                //       style: songNameStyle,
+                //     ),
+                //     trailing: ,
+                //   ),
+                // ),
                 InkWell(
                   onTap: () {
                     aboutPopUp();
@@ -166,7 +165,6 @@ List listOfOptiions = [
   "Terms and Conditions",
   "Privacy and Policy",
   "Notifications",
-  "Light & Dark theme",
   "About",
 ];
 

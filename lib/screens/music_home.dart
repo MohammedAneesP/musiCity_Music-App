@@ -119,7 +119,6 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
             child: SizedBox(
               child: ValueListenableBuilder<Box<AllSong>>(
                 valueListenable: allSongList.listenable(),
-                // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
                 builder: (BuildContext, Box<AllSong> fullSongList, child) {
                   List<AllSong> allDbSong = fullSongList.values.toList();
                   List<MostlyModel> homeMostPlayed =

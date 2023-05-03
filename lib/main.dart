@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:musi_city/application/bloc/bottom_nav_bloc.dart';
 import 'package:musi_city/functions/themechange/themechanging.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/screens/splashscreen.dart';
@@ -39,20 +41,27 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
-      builder: (context, child) {
-        final themeProvider = Provider.of<ThemeProvider>(context);
-
-        return MaterialApp(
-          title: "musiCity",
-          themeMode: themeProvider.themeMode,
-          theme: MyThemes.lightTheme,
-          darkTheme: MyThemes.dakTheme,
-          home: const SplashScreen(),
-          debugShowCheckedModeBanner: false,
-        );
-      },
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => BottomNavBloc(),
+        ),
+        
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          backgroundColor: Colors.black,
+          scaffoldBackgroundColor: Colors.white,
+          colorScheme: const ColorScheme.light(),
+          primaryColor: Colors.white,
+          iconTheme: const IconThemeData(
+            color: Colors.black,
+          ),
+        ),
+        title: "musiCity",
+        home: const SplashScreen(),
+        debugShowCheckedModeBanner: false,
+      ),
     );
   }
 }

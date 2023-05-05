@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
-import 'package:musi_city/application/bloc/bottom_nav_bloc.dart';
-import 'package:musi_city/functions/themechange/themechanging.dart';
+import 'package:musi_city/application/bottom_nav/bottom_nav_bloc.dart';
+import 'package:musi_city/application/music_home_screen/music_home_screen_bloc.dart';
+
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/screens/splashscreen.dart';
-import 'package:provider/provider.dart';
+
+import 'application/favorite_list/favorite_list_bloc.dart';
 import 'functions/box_opening.dart';
 import 'models/favorite_model.dart';
 import 'models/mostly_model.dart';
@@ -46,7 +48,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(
           create: (context) => BottomNavBloc(),
         ),
-        
+        BlocProvider(
+          create: (context) => MusicHomeScreenBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FavoriteListBloc(),
+        )
       ],
       child: MaterialApp(
         theme: ThemeData(

@@ -1,10 +1,10 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musi_city/application/music_home_screen/music_home_screen_bloc.dart';
 import 'package:musi_city/favorites/addfavorite.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
-import 'package:musi_city/main.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/models/mostly_model.dart';
 import 'package:musi_city/models/recently_model.dart';
@@ -14,41 +14,34 @@ import 'package:musi_city/nowPlaying/nowplaying_screen.dart';
 import 'package:musi_city/searchScreen/searchscreen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class MusiHomeScreen extends StatefulWidget {
-  const MusiHomeScreen({super.key});
-
-  @override
-  State<MusiHomeScreen> createState() => _MusiHomeScreenState();
-}
-
-class _MusiHomeScreenState extends State<MusiHomeScreen> {
-  List<Audio> convertAudios = [];
+class MusiHomeScreen extends StatelessWidget {
+  MusiHomeScreen({super.key});
 
   final AssetsAudioPlayer _audioPlayers = AssetsAudioPlayer.withId('0');
 
-  @override
-  void initState() {
-    List<AllSong> dbsongs = allSongList.values.toList();
-    for (var items in dbsongs) {
-      convertAudios.add(
-        Audio.file(
-          items.songurl,
-          metas: Metas(
-            title: items.songName,
-            artist: items.artists,
-            id: items.id.toString(),
-          ),
-        ),
-      );
-    }
-
-    // ignore: todo
-    // TODO: implement initState
-    super.initState();
-  }
+  // @override
+  // void initState() {
+  //   List<AllSong> dbsongs = allSongList.values.toList();
+  //   for (var items in dbsongs) {
+  //     convertAudios.add(
+  //       Audio.file(
+  //         items.songurl,
+  //         metas: Metas(
+  //           title: items.songName,
+  //           artist: items.artists,
+  //           id: items.id.toString(),
+  //         ),
+  //       ),
+  //     );
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<MusicHomeScreenBloc>(context).add(HomeScreenSong());
+    });
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
     return Scaffold(
@@ -70,12 +63,14 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                     height: mqheight * 0.22,
                     width: mqwidth * 0.54,
                     decoration: const BoxDecoration(
-                        // color: Colors.amber,
-                        image: DecorationImage(
-                            image: AssetImage(
-                              'assets/Picsart_23-01-16_20-20-47-555.png',
-                            ),
-                            fit: BoxFit.cover)),
+                      // color: Colors.amber,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          'assets/Picsart_23-01-16_20-20-47-555.png',
+                        ),
+                        fit: BoxFit.cover,
+                      ),
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.fromLTRB(
@@ -117,21 +112,18 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
           ),
           Expanded(
             child: SizedBox(
-              child: ValueListenableBuilder<Box<AllSong>>(
-                valueListenable: allSongList.listenable(),
-                builder: (BuildContext, Box<AllSong> fullSongList, child) {
-                  List<AllSong> allDbSong = fullSongList.values.toList();
+              child: BlocBuilder<MusicHomeScreenBloc, MusicHomeScreenState>(
+                builder: (context, state) {
                   List<MostlyModel> homeMostPlayed =
                       mostlyPlayedBox.values.toList();
-
-                  if (allDbSong.isEmpty) {
-                    return const Text("NO data");
+                  if (state.homeSongs.isEmpty) {
+                    return const Center(child:  Text("No Song Found"));
                   }
 
                   return ListView.separated(
                     //shrinkWrap: true,
                     itemBuilder: (context, index) {
-                      AllSong homeSongs = allDbSong[index];
+                      AllSong homeSongs = state.homeSongs[index];
                       RecentlyModel recentSongs;
                       MostlyModel homeMostlyPlayObj = homeMostPlayed[index];
 
@@ -140,7 +132,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                           GestureDetector();
                           _audioPlayers.open(
                               Playlist(
-                                audios: convertAudios,
+                                audios: state.homeSongConvert,
                                 startIndex: index,
                               ),
                               showNotification: true,
@@ -156,11 +148,14 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                           );
                           updateRecentlyPlayed(recentSongs, index);
                           updateMostlyPlayed(index, homeMostlyPlayObj);
-                          setState(() {});
+                          // setState(() {});
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => NowPlayingScreeen(
-                                currentPlayIndex: index,
+                                currentPlayIndex: state.homeSongs.indexWhere(
+                                    (element) =>
+                                        element.id ==
+                                        state.homeSongs[index].id),
                               ),
                             ),
                           );
@@ -240,7 +235,7 @@ class _MusiHomeScreenState extends State<MusiHomeScreen> {
                     separatorBuilder: (context, index) {
                       return const Divider();
                     },
-                    itemCount: allDbSong.length,
+                    itemCount: state.homeSongs.length,
                   );
                 },
               ),

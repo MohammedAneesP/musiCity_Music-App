@@ -6,40 +6,32 @@ import 'package:musi_city/main.dart';
 import 'package:musi_city/models/favorite_model.dart';
 import 'package:musi_city/models/home_models.dart';
 
-class FavNowPlayButton extends StatefulWidget {
+class FavNowPlayButton extends StatelessWidget{
   int index;
   FavNowPlayButton({super.key, required this.index});
-
-  @override
-  State<FavNowPlayButton> createState() => _FavNowPlayButtonState();
-}
-
-class _FavNowPlayButtonState extends State<FavNowPlayButton> {
-  late List<AllSong> favButtonAllSongs;
   List<FavoriteModel> favButtunSongList = [];
 
-  @override
-  void initState() {
-    favButtonAllSongs = allSongList.values.toList();
-    super.initState();
-  }
+   List<AllSong> favButtonAllSongs = allSongList.values.toList();
+  
+
+  
 
   @override
   Widget build(BuildContext context) {
     favButtunSongList = favoriteSong.values.toList();
     return favButtunSongList
             .where((element) =>
-                element.favSongName == favButtonAllSongs[widget.index].songName)
+                element.favSongName == favButtonAllSongs[index].songName)
             .isEmpty
         ? IconButton(
             onPressed: () {
               favoriteSong.add(
                 FavoriteModel(
-                    favSongName: favButtonAllSongs[widget.index].songName,
-                    favSongArtist: favButtonAllSongs[widget.index].artists,
-                    favSongDuration: favButtonAllSongs[widget.index].duration,
-                    favSongUrl: favButtonAllSongs[widget.index].songurl,
-                    favSongId: favButtonAllSongs[widget.index].id),
+                    favSongName: favButtonAllSongs[index].songName,
+                    favSongArtist: favButtonAllSongs[index].artists,
+                    favSongDuration: favButtonAllSongs[index].duration,
+                    favSongUrl: favButtonAllSongs[index].songurl,
+                    favSongId: favButtonAllSongs[index].id),
               );
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
@@ -48,19 +40,20 @@ class _FavNowPlayButtonState extends State<FavNowPlayButton> {
                   duration: Duration(seconds: 2),
                 ),
               );
-              setState(() {});
+           
             },
             icon: const Icon(
               Icons.favorite_border_sharp,
               //color: Colors.white,
               size: 30,
-            ))
+            ),
+          )
         : IconButton(
             onPressed: () {
               int favNowPlaysong = favButtunSongList.indexWhere((element) =>
-                  element.favSongId == favButtonAllSongs[widget.index].id);
+                  element.favSongId == favButtonAllSongs[index].id);
               favoriteSong.deleteAt(favNowPlaysong);
-              
+
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(
                   content: Text("Removed from Favorites"),
@@ -68,9 +61,9 @@ class _FavNowPlayButtonState extends State<FavNowPlayButton> {
                   duration: Duration(seconds: 2),
                 ),
               );
-              setState(() {});
+         
             },
-            icon:  Icon(
+            icon: Icon(
               Icons.favorite_sharp,
               color: Colors.redAccent[400],
               size: 30,

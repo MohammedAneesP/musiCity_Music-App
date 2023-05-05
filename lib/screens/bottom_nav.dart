@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:musi_city/application/bloc/bottom_nav_bloc.dart';
+import 'package:musi_city/application/bottom_nav/bottom_nav_bloc.dart';
 import 'package:musi_city/favorites/favorite_screen.dart';
 import 'package:musi_city/screens/miniPlayer.dart';
 import 'package:musi_city/screens/music_home.dart';
@@ -19,8 +19,8 @@ class MusiBottomNav extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List musiBottScreens = [
-      const MusiHomeScreen(),
-      const FavoritesScreen(),
+       MusiHomeScreen(),
+       FavoritesScreen(),
       const PlaylistScreen(),
     ];
 

@@ -13,24 +13,31 @@ import '../functions/functions.dart';
 
 final player = AssetsAudioPlayer.withId('0');
 
-class NowPlayingScreeen extends StatefulWidget {
-  int currentPlayIndex;
-
+class NowPlayingScreeen extends StatelessWidget {
+  
   NowPlayingScreeen({super.key, required this.currentPlayIndex});
+  
+  int currentPlayIndex;
+  
+  final List<AllSong> nowRecentSong = allSongList.values.toList();
 
-  @override
-  State<NowPlayingScreeen> createState() => _NowPlayingScreeenState();
-}
-
-class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
   bool isRepeat = false;
-  //int forLessTen = 10;
-  late List<AllSong> nowRecentSong;
-  @override
-  void initState() {
-    nowRecentSong = allSongList.values.toList();
-    super.initState();
-  }
+
+//   NowPlayingScreeen({super.key, required this.currentPlayIndex});
+
+//   @override
+//   State<NowPlayingScreeen> createState() => _NowPlayingScreeenState();
+// }
+
+// class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
+
+//   //int forLessTen = 10;
+
+//   @override
+//   void initState() {
+
+//     super.initState();
+//   }
 
   @override
   Widget build(BuildContext context) {
@@ -51,10 +58,10 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon:const Icon(
+                      icon: const Icon(
                         Icons.arrow_back_rounded,
                         size: 25,
-                       // color: whiteColor,
+                        // color: whiteColor,
                       ),
                     ),
                   ),
@@ -81,12 +88,16 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              FavNowPlayButton(
-                                index: nowRecentSong.indexWhere(
-                                  (element) =>
-                                      element.songName ==
-                                      playing.audio.audio.metas.title,
-                                ),
+                              player.builderCurrent(
+                                builder: (context, playing) {
+                                  return FavNowPlayButton(
+                                    index: nowRecentSong.indexWhere(
+                                      (element) =>
+                                          element.songName ==
+                                          playing.audio.audio.metas.title,
+                                    ),
+                                  );
+                                },
                               ),
                               AddFromNowPlay(
                                 songIndex: nowRecentSong.indexWhere(
@@ -110,13 +121,12 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                               nullArtworkWidget: Container(
                                 height: mqheight * 0.35,
                                 width: mqwidth * 0.7,
-                                decoration:  BoxDecoration(
+                                decoration: BoxDecoration(
                                   image: DecorationImage(
-                                    image: AssetImage(
-                                        nowPlayImage),
+                                    image: AssetImage(nowPlayImage),
                                     fit: BoxFit.cover,
                                   ),
-                                  borderRadius:const BorderRadius.all(
+                                  borderRadius: const BorderRadius.all(
                                     Radius.circular(6),
                                   ),
                                 ),
@@ -139,7 +149,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                     const Duration(seconds: -10),
                                   );
                                 },
-                                icon:const Icon(
+                                icon: const Icon(
                                   Icons.replay_10_rounded,
                                   size: 30,
                                   //color: whiteColor,
@@ -164,10 +174,10 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                   await player
                                       .seekBy(const Duration(seconds: 10));
                                 },
-                                icon:const Icon(
+                                icon: const Icon(
                                   Icons.forward_10_rounded,
                                   size: 30,
-                                 // color: whiteColor,
+                                  // color: whiteColor,
                                 ),
                               ),
 
@@ -184,7 +194,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                   child: Text(
                                     player.getCurrentAudioArtist,
                                     style: const TextStyle(
-                                     // color: Colors.white70,
+                                      // color: Colors.white70,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),
@@ -211,18 +221,18 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                     padding: EdgeInsets.fromLTRB(
                         mqwidth * 0.07, 0, mqwidth * 0.07, 0),
                     child: ProgressBar(
-                     // progressBarColor: Colors.redAccent,
-                     // baseBarColor: Color.fromARGB(179, 135, 81, 81),
+                      // progressBarColor: Colors.redAccent,
+                      // baseBarColor: Color.fromARGB(179, 135, 81, 81),
                       //thumbColor: Color.fromARGB(255, 6, 5, 5),
                       progress: songNowPosition,
-                     // thumbGlowColor: Colors.deepOrange,
+                      // thumbGlowColor: Colors.deepOrange,
                       thumbGlowRadius: 15,
                       thumbRadius: 7,
                       barHeight: 3,
                       timeLabelPadding: mqheight * 0.004,
                       total: songDuration,
                       onSeek: (songDuration) => player.seek(songDuration),
-                     // timeLabelTextStyle: const TextStyle(color: Colors.white),
+                      // timeLabelTextStyle: const TextStyle(color: Colors.white),
                     ),
                   );
                 },
@@ -241,7 +251,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        setState(() {});
+                        // setState(() {});
                         player.toggleShuffle();
                       },
                       icon: player.isShuffling.value
@@ -251,7 +261,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                             )
                           : const Icon(
                               Icons.shuffle,
-                             // color: Colors.white,
+                              // color: Colors.white,
                             ),
                     ),
 
@@ -286,18 +296,18 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                       preRecSong, playing.index - 1);
                                   if (isPlaying == false) {
                                     player.pause();
-                                    setState(() {});
+                                    // setState(() {});
                                   }
                                 },
                           icon: playing.index == 0
-                              ?const Icon(
+                              ? const Icon(
                                   Icons.skip_previous_rounded,
                                   color: Color.fromARGB(255, 94, 93, 93),
                                   size: 35,
                                 )
                               : const Icon(
                                   Icons.skip_previous_rounded,
-                                 // color: Colors.white,
+                                  // color: Colors.white,
                                 ),
                           iconSize: 35,
                         );
@@ -365,7 +375,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                                       nextRecSong, playing.index + 1);
                                   if (isPlaying == false) {
                                     player.pause();
-                                    setState(() {});
+                                    //  setState(() {});
                                   }
                                 },
                           icon: playing.index ==
@@ -395,7 +405,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                           player.setLoopMode(LoopMode.single);
                           isRepeat = true;
                         }
-                        setState(() {});
+                        // setState(() {});
                       },
                       icon: isRepeat
                           ? const Icon(
@@ -405,7 +415,7 @@ class _NowPlayingScreeenState extends State<NowPlayingScreeen> {
                             )
                           : const Icon(
                               Icons.repeat_sharp,
-                             // color: Colors.white,
+                              // color: Colors.white,
                               size: 27,
                             ),
                     ),

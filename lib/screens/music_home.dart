@@ -2,6 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musi_city/application/music_home_screen/music_home_screen_bloc.dart';
+import 'package:musi_city/application/recently_played/recently_played_bloc.dart';
 import 'package:musi_city/favorites/addfavorite.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
@@ -16,6 +17,7 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class MusiHomeScreen extends StatelessWidget {
   MusiHomeScreen({super.key});
+  List<Audio> homeMusicConvrt = [];
 
   final AssetsAudioPlayer _audioPlayers = AssetsAudioPlayer.withId('0');
 
@@ -41,6 +43,7 @@ class MusiHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<MusicHomeScreenBloc>(context).add(HomeScreenSong());
+      // BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
     });
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
@@ -114,10 +117,19 @@ class MusiHomeScreen extends StatelessWidget {
             child: SizedBox(
               child: BlocBuilder<MusicHomeScreenBloc, MusicHomeScreenState>(
                 builder: (context, state) {
+                  for (var element in state.homeSongs) {
+                    homeMusicConvrt.add(Audio.file(
+                      element.songurl,
+                      metas: Metas(
+                          id: element.id.toString(),
+                          title: element.songName,
+                          artist: element.artists),
+                    ));
+                  }
                   List<MostlyModel> homeMostPlayed =
                       mostlyPlayedBox.values.toList();
                   if (state.homeSongs.isEmpty) {
-                    return const Center(child:  Text("No Song Found"));
+                    return const Center(child: Text("No Song Found"));
                   }
 
                   return ListView.separated(
@@ -125,14 +137,14 @@ class MusiHomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       AllSong homeSongs = state.homeSongs[index];
                       RecentlyModel recentSongs;
-                      MostlyModel homeMostlyPlayObj = homeMostPlayed[index];
+                       MostlyModel homeMostlyPlayObj = homeMostPlayed[index];
 
                       return ListTile(
                         onTap: () {
                           GestureDetector();
                           _audioPlayers.open(
                               Playlist(
-                                audios: state.homeSongConvert,
+                                audios: homeMusicConvrt,
                                 startIndex: index,
                               ),
                               showNotification: true,
@@ -146,16 +158,14 @@ class MusiHomeScreen extends StatelessWidget {
                             recentSongurl: homeSongs.songurl,
                             recentId: homeSongs.id,
                           );
-                          updateRecentlyPlayed(recentSongs, index);
-                          updateMostlyPlayed(index, homeMostlyPlayObj);
+                          updateRecentlyPlayed(recentSongs, index, context);
+                           BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
+                           updateMostlyPlayed(index, homeMostlyPlayObj);
                           // setState(() {});
                           Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => NowPlayingScreeen(
-                                currentPlayIndex: state.homeSongs.indexWhere(
-                                    (element) =>
-                                        element.id ==
-                                        state.homeSongs[index].id),
+                                currentPlayIndex: index,
                               ),
                             ),
                           );

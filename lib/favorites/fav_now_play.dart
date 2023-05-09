@@ -1,73 +1,119 @@
 // ignore_for_file: must_be_immutable
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musi_city/application/fav_now_play_button/fav_now_play_button_bloc.dart';
+import 'package:musi_city/application/favorite_list/favorite_list_bloc.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/main.dart';
 import 'package:musi_city/models/favorite_model.dart';
 import 'package:musi_city/models/home_models.dart';
 
-class FavNowPlayButton extends StatelessWidget{
+class FavNowPlayButton extends StatefulWidget {
   int index;
   FavNowPlayButton({super.key, required this.index});
+
+  @override
+  State<FavNowPlayButton> createState() => _FavNowPlayButtonState();
+}
+
+class _FavNowPlayButtonState extends State<FavNowPlayButton> {
   List<FavoriteModel> favButtunSongList = [];
 
-   List<AllSong> favButtonAllSongs = allSongList.values.toList();
-  
-
-  
+  List<AllSong> favButtonAllSongs = allSongList.values.toList();
 
   @override
   Widget build(BuildContext context) {
+    // log(index.toString());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<FavNowPlayButtonBloc>(context).add(NowFavInitial());
+    });
     favButtunSongList = favoriteSong.values.toList();
     return favButtunSongList
             .where((element) =>
-                element.favSongName == favButtonAllSongs[index].songName)
+                element.favSongName == favButtonAllSongs[widget.index].songName)
             .isEmpty
-        ? IconButton(
-            onPressed: () {
-              favoriteSong.add(
-                FavoriteModel(
-                    favSongName: favButtonAllSongs[index].songName,
-                    favSongArtist: favButtonAllSongs[index].artists,
-                    favSongDuration: favButtonAllSongs[index].duration,
-                    favSongUrl: favButtonAllSongs[index].songurl,
-                    favSongId: favButtonAllSongs[index].id),
-              );
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("added to Favorites"),
-                  behavior: SnackBarBehavior.floating,
-                  duration: Duration(seconds: 2),
-                ),
-              );
-           
-            },
-            icon: const Icon(
-              Icons.favorite_border_sharp,
-              //color: Colors.white,
-              size: 30,
-            ),
-          )
-        : IconButton(
-            onPressed: () {
-              int favNowPlaysong = favButtunSongList.indexWhere((element) =>
-                  element.favSongId == favButtonAllSongs[index].id);
-              favoriteSong.deleteAt(favNowPlaysong);
+        ? BlocBuilder<FavNowPlayButtonBloc, FavNowPlayButtonState>(
+            builder: (context, state) {
+              //  log(index.toString());
+              return IconButton(
+                onPressed: () {
+                  favoriteSong.add(
+                    FavoriteModel(
+                      favSongName: favButtonAllSongs[widget.index].songName,
+                      favSongArtist: favButtonAllSongs[widget.index].artists,
+                      favSongDuration: favButtonAllSongs[widget.index].duration,
+                      favSongUrl: favButtonAllSongs[widget.index].songurl,
+                      favSongId: favButtonAllSongs[widget.index].id,
+                    ),
+                  );
+                  // BlocProvider.of<FavNowPlayButtonBloc>(context)
+                  //     .add(NowFavButtonAdd());
+                  // BlocProvider.of<FavNowPlayButtonBloc>(context)
+                  //     .add(NowFavAdded());
+                  BlocProvider.of<FavNowPlayButtonBloc>(context)
+                      .add(NowFavInitial());
+                  BlocProvider.of<FavoriteListBloc>(context)
+                      .add(FavListingScreen());
 
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(
-                  content: Text("Removed from Favorites"),
-                  behavior: SnackBarBehavior.floating,
-                  duration: Duration(seconds: 2),
-                ),
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("added to Favorites"),
+                      behavior: SnackBarBehavior.floating,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                  setState(() {});
+                },
+                icon: favButtunSongList
+                        .where((element) =>
+                            element.favSongName ==
+                            favButtonAllSongs[widget.index].songName)
+                        .isEmpty
+                    ? const Icon(Icons.favorite_border)
+                    : const Icon(
+                        Icons.favorite,
+                        color: Colors.redAccent,
+                      ),
               );
-         
             },
-            icon: Icon(
-              Icons.favorite_sharp,
-              color: Colors.redAccent[400],
-              size: 30,
-            ),
+          )
+        : BlocBuilder<FavNowPlayButtonBloc, FavNowPlayButtonState>(
+            builder: (context, state) {
+              //log(index.toString());
+              return IconButton(
+                onPressed: () {
+                  int favNowPlaysong = favButtunSongList.indexWhere((element) =>
+                      element.favSongId == favButtonAllSongs[widget.index].id);
+                  favoriteSong.deleteAt(favNowPlaysong);
+                  // BlocProvider.of<FavNowPlayButtonBloc>(context)
+                  //     .add(NowFavRemove());
+                  BlocProvider.of<FavNowPlayButtonBloc>(context)
+                      .add(NowFavInitial());
+                  BlocProvider.of<FavoriteListBloc>(context)
+                      .add(FavListingScreen());
+
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Removed from Favorites"),
+                      behavior: SnackBarBehavior.floating,
+                      duration: Duration(seconds: 2),
+                    ),
+                  );
+                  setState(() {});
+                },
+                icon: favButtunSongList
+                        .where((element) =>
+                            element.favSongName ==
+                            favButtonAllSongs[widget.index].songName)
+                        .isEmpty
+                    ? const Icon(Icons.favorite_border)
+                    : const Icon(
+                        Icons.favorite,
+                        color: Colors.redAccent,
+                      ),
+              );
+            },
           );
   }
 }

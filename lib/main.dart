@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:musi_city/application/bottom_nav/bottom_nav_bloc.dart';
+import 'package:musi_city/application/fav_now_play_button/fav_now_play_button_bloc.dart';
+import 'package:musi_city/application/mostly_played/mostly_played_bloc.dart';
 import 'package:musi_city/application/music_home_screen/music_home_screen_bloc.dart';
-
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/screens/splashscreen.dart';
-
 import 'application/favorite_list/favorite_list_bloc.dart';
+import 'application/recently_played/recently_played_bloc.dart';
 import 'functions/box_opening.dart';
 import 'models/favorite_model.dart';
 import 'models/mostly_model.dart';
@@ -53,10 +54,22 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => FavoriteListBloc(),
+        ),
+        BlocProvider(
+          create: (context) => FavNowPlayButtonBloc(),
+          child: Container(),
+        ),
+        BlocProvider(
+          create: (context) => RecentlyPlayedBloc(),
+        ),
+        BlocProvider(
+          create: (context) => MostlyPlayedBloc(),
+          child: Container(),
         )
       ],
       child: MaterialApp(
         theme: ThemeData(
+          useMaterial3: true,
           backgroundColor: Colors.black,
           scaffoldBackgroundColor: Colors.white,
           colorScheme: const ColorScheme.light(),

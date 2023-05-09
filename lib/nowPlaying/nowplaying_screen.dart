@@ -1,7 +1,12 @@
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:marquee/marquee.dart';
+import 'package:musi_city/application/fav_now_play_button/fav_now_play_button_bloc.dart';
+import 'package:musi_city/application/recently_played/recently_played_bloc.dart';
 import 'package:musi_city/favorites/fav_now_play.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/main.dart';
@@ -14,11 +19,10 @@ import '../functions/functions.dart';
 final player = AssetsAudioPlayer.withId('0');
 
 class NowPlayingScreeen extends StatelessWidget {
-  
   NowPlayingScreeen({super.key, required this.currentPlayIndex});
-  
+
   int currentPlayIndex;
-  
+
   final List<AllSong> nowRecentSong = allSongList.values.toList();
 
   bool isRepeat = false;
@@ -43,7 +47,7 @@ class NowPlayingScreeen extends StatelessWidget {
   Widget build(BuildContext context) {
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
-
+    // log(currentPlayIndex.toString());
     return player.builderCurrent(
       builder: (context, playing) {
         return Scaffold(
@@ -90,13 +94,10 @@ class NowPlayingScreeen extends StatelessWidget {
                             children: [
                               player.builderCurrent(
                                 builder: (context, playing) {
+                                  BlocProvider.of<FavNowPlayButtonBloc>(context)
+                                      .add(NowFavInitial());
                                   return FavNowPlayButton(
-                                    index: nowRecentSong.indexWhere(
-                                      (element) =>
-                                          element.songName ==
-                                          playing.audio.audio.metas.title,
-                                    ),
-                                  );
+                                      index: currentPlayIndex);
                                 },
                               ),
                               AddFromNowPlay(
@@ -188,7 +189,7 @@ class NowPlayingScreeen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               SizedBox(
-                                height: mqheight * 0.015,
+                                height: mqheight * 0.018,
                                 width: mqwidth * 0.55,
                                 child: Center(
                                   child: Text(
@@ -293,7 +294,8 @@ class NowPlayingScreeen extends StatelessWidget {
                                         nowRecentSong[playing.index - 1].id,
                                   );
                                   updateRecentlyPlayed(
-                                      preRecSong, playing.index - 1);
+                                      preRecSong, playing.index - 1,context);
+                                      BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
                                   if (isPlaying == false) {
                                     player.pause();
                                     // setState(() {});
@@ -372,7 +374,8 @@ class NowPlayingScreeen extends StatelessWidget {
                                       recentId:
                                           nowRecentSong[playing.index + 1].id);
                                   updateRecentlyPlayed(
-                                      nextRecSong, playing.index + 1);
+                                      nextRecSong, playing.index + 1,context);
+                                      BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
                                   if (isPlaying == false) {
                                     player.pause();
                                     //  setState(() {});

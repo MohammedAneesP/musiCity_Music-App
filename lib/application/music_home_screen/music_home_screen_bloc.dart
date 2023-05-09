@@ -9,28 +9,11 @@ part 'music_home_screen_state.dart';
 
 class MusicHomeScreenBloc
     extends Bloc<MusicHomeScreenEvent, MusicHomeScreenState> {
-  List<AllSong> allBlocSongs = allSongList.values.toList();
-  List<Audio> allSongConvert = [];
   MusicHomeScreenBloc() : super(MusicHomeScreenInitial()) {
     on<HomeScreenSong>((event, emit) {
-      for (var element in allBlocSongs) {
-        allSongConvert.add(
-          Audio.file(
-            element.songurl,
-            metas: Metas(
-              id: element.id.toString(),
-              title: element.artists,
-              artist: element.artists,
-            ),
-          ),
-        );
-      }
-      return emit(
-        MusicHomeScreenState(
-          homeSongs: allBlocSongs,
-          homeSongConvert: allSongConvert,
-        ),
-      );
+      List<AllSong> allBlocSongs = allSongList.values.toList();
+
+      return emit(MusicHomeScreenState(homeSongs: allBlocSongs));
     });
   }
 }

@@ -1,10 +1,11 @@
 part of 'fav_now_play_button_bloc.dart';
 
  class FavNowPlayButtonState {
-  bool isPressed ;
-  FavNowPlayButtonState({required this.isPressed});
+  
+  List<FavoriteModel>favStateList;  
+  FavNowPlayButtonState({required this.favStateList});
  }
 
 class FavNowPlayButtonInitial extends FavNowPlayButtonState {
-  FavNowPlayButtonInitial():super(isPressed: false);
+  FavNowPlayButtonInitial():super(favStateList: []);
 }

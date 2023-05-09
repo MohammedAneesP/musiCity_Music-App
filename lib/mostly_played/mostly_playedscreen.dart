@@ -1,6 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:musi_city/application/mostly_played/mostly_played_bloc.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/main.dart';
@@ -10,53 +12,30 @@ import 'package:musi_city/nowPlaying/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../models/mostly_model.dart';
 
-class MostlyPlayedScreen extends StatefulWidget {
-  const MostlyPlayedScreen({super.key});
+class MostlyPlayedScreen extends StatelessWidget {
+  MostlyPlayedScreen({super.key});
 
-  @override
-  State<MostlyPlayedScreen> createState() => _MostlyPlayedScreenState();
-}
-
-List<MostlyModel> mostlyScreenSongs = [];
-
-class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
+  List<MostlyModel> mostlyScreenSongs = [];
   List<Audio> mostlyConvrtAudio = [];
   final AssetsAudioPlayer mosplyAudioPlyr = AssetsAudioPlayer.withId('0');
-  late List<AllSong> allsongMostly;
-  late List<AllSong> fullSongForMostly;
+  // late List<AllSong> allsongMostly;
+  List<AllSong> fullSongForMostly = allSongList.values.toList();
+  List<MostlyModel> msPldSongList = mostlyPlayedBox.values.toList();
 
-  @override
-  void initState() {
-    fullSongForMostly = allSongList.values.toList();
-    List<MostlyModel> msPldSongList = mostlyPlayedBox.values.toList();
+  // void initState() {
+  //   //fullSongForMostly
 
-    // log(msPldSongList.toString());
+  //   // log(msPldSongList.toString());
 
-    for (var oneSong in msPldSongList) {
-      if (oneSong.songCount >= 3) {
-        mostlyScreenSongs.remove(oneSong);
-        mostlyScreenSongs.add(oneSong);
-      }
-      // log(oneSong.toString());
-    }
-
-    for (var items in mostlyScreenSongs) {
-      mostlyConvrtAudio.add(
-        Audio.file(
-          items.mostlySongUrl,
-          metas: Metas(
-            title: items.mostlySongName,
-            artist: items.mostlyArtistName,
-            id: items.mostlySongId.toString(),
-          ),
-        ),
-      );
-    }
-    super.initState();
-  }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<MostlyPlayedBloc>(context).add(MostlyScreenShow());
+    });
+
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
 
@@ -76,7 +55,7 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                   height: mqheight * 0.28,
                   width: mqwidth * 0.815,
                   decoration: const BoxDecoration(
-                  //  color: Colors.amber,
+                    //  color: Colors.amber,
                     image: DecorationImage(
                         image: AssetImage('assets/mostly.png'),
                         fit: BoxFit.cover),
@@ -103,8 +82,8 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                             ),
                             TextButton(
                                 onPressed: () {
-                                  mostlyScreenSongs.clear();
-                                  setState(() {});
+                                  // mostlyScreenSongs.clear();
+                                  // setState(() {});
                                   Navigator.pop(context);
                                 },
                                 child: const Text("Yes"))
@@ -123,11 +102,16 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
           ),
           Expanded(
             child: SizedBox(
-              child: ValueListenableBuilder(
-                valueListenable: mostlyPlayedBox.listenable(),
-                // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-                builder: (BuildContext, Box<MostlyModel> mostlyScreenList, _) {
-                  if (mostlyScreenSongs.isEmpty) {
+              child: BlocBuilder<MostlyPlayedBloc, MostlyPlayedState>(
+                builder: (context, state) {
+                  for (var oneSong in state.mostltStateList) {
+                    if (oneSong.songCount >= 3) {
+                      mostlyScreenSongs.remove(oneSong);
+                      mostlyScreenSongs.add(oneSong);
+                    }
+                    // log(oneSong.toString());
+                  }
+                  if (state.mostltStateList.isEmpty) {
                     return Center(
                       child: Text(
                         'Nothing Played yet',
@@ -135,68 +119,97 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                       ),
                     );
                   } else {
+                    //   for (var items in state.mostltStateList) {
+                    //   mostlyConvrtAudio.add(
+                    //     Audio.file(
+                    //       items.mostlySongUrl,
+                    //       metas: Metas(
+                    //         title: items.mostlySongName,
+                    //         artist: items.mostlyArtistName,
+                    //         id: items.mostlySongId.toString(),
+                    //       ),
+                    //     ),
+                    //   );
+                    // }
+
+                    List<MostlyModel> mostlyRevListing =
+                        mostlyScreenSongs.reversed.toList();
+                    for (var element in mostlyRevListing) {
+                      mostlyConvrtAudio.add(
+                        Audio.file(
+                          element.mostlySongUrl,
+                          metas: Metas(
+                            title: element.mostlySongName,
+                            artist: element.mostlyArtistName,
+                            id: element.mostlySongId.toString(),
+                          ),
+                        ),
+                      );
+                    }
                     return ListView.separated(
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            onTap: () {
-                              mosplyAudioPlyr.open(
-                                Playlist(
-                                    audios: mostlyConvrtAudio,
-                                    startIndex: index),
-                                headPhoneStrategy:
-                                    HeadPhoneStrategy.pauseOnUnplug,
-                                loopMode: LoopMode.playlist,
-                                showNotification: true,
-                              );
-                              Navigator.of(context).push(
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return NowPlayingScreeen(
-                                      currentPlayIndex:
-                                          fullSongForMostly.indexWhere(
-                                        (element) =>
-                                            element.songName ==
-                                            mostlyScreenSongs[index]
-                                                .mostlySongName,
-                                      ),
-                                    );
-                                  },
-                                ),
-                              );
-                            },
-                            leading: QueryArtworkWidget(
-                              id: mostlyScreenSongs[index].mostlySongId,
-                              type: ArtworkType.AUDIO,
-                              artworkFit: BoxFit.cover,
-                              artworkQuality: FilterQuality.high,
-                              quality: 100,
-                              artworkBorder: BorderRadius.circular(30),
-                              nullArtworkWidget: CircleAvatar(
-                                radius: 25,
-                                backgroundImage: AssetImage(leadingImage),
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                          onTap: () {
+                            mosplyAudioPlyr.open(
+                              Playlist(
+                                audios: mostlyConvrtAudio,
+                                startIndex: index,
                               ),
-                            ),
-                            title: Text(
-                              mostlyScreenSongs[index].mostlySongName,
-                              style: songNameStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            subtitle: Text(
-                              mostlyScreenSongs[index].mostlyArtistName,
-                              style: songNameStyle,
-                              overflow: TextOverflow.ellipsis,
-                            ),
-                            trailing: AddToFAvIcon(
-                              index: fullSongForMostly.indexWhere(
-                                (element) =>
-                                    element.songName ==
-                                    mostlyScreenSongs[index].mostlySongName,
+                              headPhoneStrategy:
+                                  HeadPhoneStrategy.pauseOnUnplug,
+                              loopMode: LoopMode.playlist,
+                              showNotification: true,
+                            );
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return NowPlayingScreeen(
+                                    currentPlayIndex:
+                                        fullSongForMostly.indexWhere(
+                                      (element) =>
+                                          element.songName ==
+                                          mostlyRevListing[index]
+                                              .mostlySongName,
+                                    ),
+                                  );
+                                },
                               ),
+                            );
+                          },
+                          leading: QueryArtworkWidget(
+                            id: mostlyRevListing[index].mostlySongId,
+                            type: ArtworkType.AUDIO,
+                            artworkFit: BoxFit.cover,
+                            artworkQuality: FilterQuality.high,
+                            quality: 100,
+                            artworkBorder: BorderRadius.circular(30),
+                            nullArtworkWidget: CircleAvatar(
+                              radius: 25,
+                              backgroundImage: AssetImage(leadingImage),
                             ),
-                          );
-                        },
-                        separatorBuilder: (context, index) => const Divider(),
-                        itemCount: mostlyScreenSongs.length);
+                          ),
+                          title: Text(
+                            mostlyRevListing[index].mostlySongName,
+                            style: songNameStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          subtitle: Text(
+                            mostlyRevListing[index].mostlyArtistName,
+                            style: songNameStyle,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          trailing: AddToFAvIcon(
+                            index: fullSongForMostly.indexWhere(
+                              (element) =>
+                                  element.songName ==
+                                  mostlyRevListing[index].mostlySongName,
+                            ),
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) => const Divider(),
+                      itemCount: mostlyRevListing.length,
+                    );
                   }
                 },
               ),

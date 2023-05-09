@@ -2,6 +2,8 @@
 
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musi_city/application/recently_played/recently_played_bloc.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/main.dart';
@@ -134,7 +136,8 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                                       recentId:
                                           miniRecentSong[playing.index - 1].id);
                                   updateRecentlyPlayed(
-                                      miniPreRecSong, playing.index - 1);
+                                      miniPreRecSong, playing.index - 1,context);
+                                      BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
                                 },
                           icon: playing.index == 0
                               ? const Icon(
@@ -197,7 +200,8 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                                       recentId:
                                           miniRecentSong[playing.index + 1].id);
                                   updateRecentlyPlayed(
-                                      miniNextRecSong, playing.index + 1);
+                                      miniNextRecSong, playing.index + 1,context);
+                                      //BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
                                   if (playing == false) {
                                     player.pause();
                                   }

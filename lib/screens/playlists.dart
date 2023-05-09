@@ -1,5 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musi_city/application/recently_played/recently_played_bloc.dart';
+
 import 'package:musi_city/functions/functions.dart';
+
 import 'package:musi_city/mostly_played/mostly_playedscreen.dart';
 import 'package:musi_city/my_playlists/my_playlistscreen.dart';
 import 'package:musi_city/recently_played/recently_playedscreen.dart';
@@ -40,7 +46,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           InkWell(
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const MostlyPlayedScreen(),
+                builder: (context) =>  MostlyPlayedScreen(),
               ));
             },
             child: ListTile(
@@ -53,9 +59,17 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
           ),
           InkWell(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => const RecentlyPlayedScreen(),
-              ));
+              // BlocProvider.of<RecentlyPlayedBloc>(context)
+              //     .add(RecentShowListEvent());
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => RecentlyPlayedScreen(),
+                ),
+              );
+              // List<RecentlyModel> recentLog = recentlyPlayedBox.values.toList();
+              // for (var i = 0; i < recentLog.length; i++) {
+              //   log(recentLog[i].recentSongName);
+              // }
             },
             child: ListTile(
               title: Text(

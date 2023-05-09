@@ -34,6 +34,7 @@ class AddToFavorite extends StatelessWidget {
                   favSongId: forFavAllSong[index].id,
                 ),
               );
+              
               BlocProvider.of<FavoriteListBloc>(context).add(FavListingScreen());
               Navigator.pop(context);
               SnackAddDeleteMsg("Added to Favorite's", context);

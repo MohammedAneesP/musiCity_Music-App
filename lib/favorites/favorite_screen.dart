@@ -7,8 +7,6 @@ import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/nowPlaying/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-
-
 class FavoritesScreen extends StatelessWidget {
   FavoritesScreen({super.key});
 
@@ -162,6 +160,9 @@ class FavoritesScreen extends StatelessWidget {
                                           onPressed: () {
                                             state.favStateList.removeAt(index);
                                             favoriteSong.deleteAt(index);
+                                            BlocProvider.of<FavoriteListBloc>(
+                                                    context)
+                                                .add(FavListingScreen());
                                             Navigator.pop(context);
                                           },
                                           child: const Text("Yes"),
@@ -173,7 +174,6 @@ class FavoritesScreen extends StatelessWidget {
                               },
                               icon: const Icon(
                                 Icons.delete,
-                                color: Colors.white70,
                               ),
                             ),
                           ),

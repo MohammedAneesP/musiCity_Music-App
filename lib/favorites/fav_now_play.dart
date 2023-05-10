@@ -47,10 +47,7 @@ class _FavNowPlayButtonState extends State<FavNowPlayButton> {
                       favSongId: favButtonAllSongs[widget.index].id,
                     ),
                   );
-                  // BlocProvider.of<FavNowPlayButtonBloc>(context)
-                  //     .add(NowFavButtonAdd());
-                  // BlocProvider.of<FavNowPlayButtonBloc>(context)
-                  //     .add(NowFavAdded());
+                 
                   BlocProvider.of<FavNowPlayButtonBloc>(context)
                       .add(NowFavInitial());
                   BlocProvider.of<FavoriteListBloc>(context)
@@ -80,14 +77,13 @@ class _FavNowPlayButtonState extends State<FavNowPlayButton> {
           )
         : BlocBuilder<FavNowPlayButtonBloc, FavNowPlayButtonState>(
             builder: (context, state) {
-              //log(index.toString());
+              
               return IconButton(
                 onPressed: () {
                   int favNowPlaysong = favButtunSongList.indexWhere((element) =>
                       element.favSongId == favButtonAllSongs[widget.index].id);
                   favoriteSong.deleteAt(favNowPlaysong);
-                  // BlocProvider.of<FavNowPlayButtonBloc>(context)
-                  //     .add(NowFavRemove());
+                 
                   BlocProvider.of<FavNowPlayButtonBloc>(context)
                       .add(NowFavInitial());
                   BlocProvider.of<FavoriteListBloc>(context)

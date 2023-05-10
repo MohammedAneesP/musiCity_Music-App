@@ -1,19 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musi_city/application/playlist_list/playlist_listing_bloc.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/models/playlist_model.dart';
 import 'package:musi_city/my_playlists/createdplaylist.dart';
 
-class MyPlaylist extends StatefulWidget {
-  const MyPlaylist({super.key});
-
-  @override
-  State<MyPlaylist> createState() => _MyPlaylistState();
-}
-
-class _MyPlaylistState extends State<MyPlaylist> {
-  TextEditingController playlistNameController = TextEditingController();
+class MyPlaylist extends StatelessWidget {
+  MyPlaylist({super.key});
+  TextEditingController 
+  playlistNameController = TextEditingController();
 
   TextEditingController playlistNameEditor = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -23,6 +19,9 @@ class _MyPlaylistState extends State<MyPlaylist> {
 
   @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<PlaylistListingBloc>(context).add(PlayListShow());
+    });
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
 
@@ -30,7 +29,7 @@ class _MyPlaylistState extends State<MyPlaylist> {
       floatingActionButton: Padding(
         padding: EdgeInsets.fromLTRB(0, 0, mqwidth * 0.05, mqheight * 0.03),
         child: FloatingActionButton(
-         // backgroundColor: whiteColor,
+          // backgroundColor: whiteColor,
           tooltip: "create playlist",
           onPressed: () {
             showDialog(
@@ -81,7 +80,10 @@ class _MyPlaylistState extends State<MyPlaylist> {
                               playlistSongs: [],
                             ),
                           );
+                          BlocProvider.of<PlaylistListingBloc>(context)
+                              .add(PlayListShow());
                           SnackAddDeleteMsg("playlist created", context);
+                          playlistNameController.clear();
                           Navigator.pop(context);
                         }
                       },
@@ -94,20 +96,20 @@ class _MyPlaylistState extends State<MyPlaylist> {
           },
           child: const Icon(
             Icons.add,
-            color: musiCityBgColor,
+            // color: musiCityBgColor,
           ),
         ),
       ),
-     // backgroundColor: musiCityBgColor,
+      // backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           Padding(
-            padding: EdgeInsets.fromLTRB(0,mqheight*0.033, 0, 0),
+            padding: EdgeInsets.fromLTRB(0, mqheight * 0.033, 0, 0),
             child: Container(
               height: mqheight * 0.1,
               width: mqwidth * 0.8,
               decoration: const BoxDecoration(
-                 // color: Colors.amber,
+                // color: Colors.amber,
                 image: DecorationImage(
                   image: AssetImage('assets/myplaylist.png'),
                   fit: BoxFit.cover,
@@ -120,11 +122,14 @@ class _MyPlaylistState extends State<MyPlaylist> {
           ),
           Expanded(
             child: SizedBox(
-              child: ValueListenableBuilder(
-                valueListenable: myPlaylist.listenable(),
-                builder: (BuildContext, Box<PlaylistModel> playlistListing, _) {
+              // child: ValueListenableBuilder(
+              //   valueListenable: myPlaylist.listenable(),
+              //   builder: (BuildContext, Box<PlaylistModel> playlistListing, _) {
+
+              child: BlocBuilder<PlaylistListingBloc, PlaylistListingState>(
+                builder: (context, state) {
                   List<PlaylistModel> playlistNameList =
-                      playlistListing.values.toList();
+                      state.anNewPlayList.toList();
                   if (playlistNameList.isEmpty) {
                     return Center(
                       child: Text(
@@ -134,137 +139,138 @@ class _MyPlaylistState extends State<MyPlaylist> {
                     );
                   } else {
                     return ListView.separated(
-                        itemBuilder: (context, index) {
-                          PlaylistModel fullPlaylist = playlistNameList[index];
-                          return ListTile(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) {
-                                    return PlaylistCreated(
-                                      allPlaylistSong:
-                                          playlistNameList[index].playlistSongs,
-                                      crntPlaylstName:
-                                          playlistNameList[index].playlistName,
-                                      playlistIndex: index,
+                      itemBuilder: (context, index) {
+                        PlaylistModel fullPlaylist = playlistNameList[index];
+                        return ListTile(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return PlaylistCreated(
+                                    allPlaylistSong:
+                                        playlistNameList[index].playlistSongs,
+                                    crntPlaylstName:
+                                        playlistNameList[index].playlistName,
+                                    playlistIndex: index,
+                                  );
+                                },
+                              ),
+                            );
+                          },
+                          title: Text(
+                            fullPlaylist.playlistName,
+                            style: songNameStyle,
+                          ),
+                          trailing: PopupMenuButton(
+                            icon: const Icon(
+                              Icons.more_vert_sharp,
+                              //color: whiteColor,
+                            ),
+                            color: Colors.red[100],
+                            itemBuilder: (context) {
+                              return [
+                                PopupMenuItem(
+                                  value: 1,
+                                  child: const Text("Delete"),
+                                  onTap: () {
+                                    OntapDelete(index, context);
+                                  },
+                                ),
+                                PopupMenuItem(
+                                  child: const Text("Edit"),
+                                  onTap: () {
+                                    playlistNameEditor = playlistNameController;
+
+                                    Future.delayed(
+                                      const Duration(seconds: 0),
+                                      () => showDialog(
+                                        context: context,
+                                        builder: (context) {
+                                          playlistNameEditor =TextEditingController(text: state.anNewPlayList[index].playlistName);
+                                          return AlertDialog(
+                                            title: const Text(
+                                              "Rename Your Plalist",
+                                            ),
+                                            content: Form(
+                                              key: editorFormKey,
+                                              child: TextFormField(
+                                                
+                                                controller: playlistNameEditor,
+                                                decoration:
+                                                    const InputDecoration(
+                                                  border: OutlineInputBorder(
+                                                    borderSide: BorderSide(
+                                                        color: Colors.black),
+                                                  ),
+                                                ),
+                                                validator: (value) {
+                                                  List<PlaylistModel>
+                                                      editValid = myPlaylist
+                                                          .values
+                                                          .toList();
+                                                  bool isAlreadyThere = editValid
+                                                      .where((element) =>
+                                                          element
+                                                              .playlistName ==
+                                                          value!.trim())
+                                                      .isNotEmpty;
+
+                                                  if (value!.trim().isEmpty) {
+                                                    return "Name required";
+                                                  }
+                                                  if (isAlreadyThere) {
+                                                    return "Existing Name";
+                                                  } else {
+                                                    return null;
+                                                  }
+                                                },
+                                              ),
+                                            ),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text("Cancel"),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  final isValid = editorFormKey
+                                                      .currentState!
+                                                      .validate();
+                                                  if (isValid) {
+                                                    myPlaylist.putAt(
+                                                      index,
+                                                      PlaylistModel(
+                                                        playlistName:
+                                                            playlistNameEditor
+                                                                .text,
+                                                        playlistSongs: [],
+                                                      ),
+                                                    );
+                                                    Navigator.pop(context);
+                                                  }
+                                                },
+                                                child: const Text("submit"),
+                                              ),
+                                            ],
+                                          );
+                                        },
+                                      ),
                                     );
                                   },
                                 ),
-                              );
+                              ];
                             },
-                            title: Text(
-                              fullPlaylist.playlistName,
-                              style: songNameStyle,
-                            ),
-                            trailing: PopupMenuButton(
-                              icon: const Icon(
-                                Icons.more_vert_sharp,
-                                //color: whiteColor,
-                              ),
-                              color: Colors.red[100],
-                              itemBuilder: (context) {
-                                return [
-                                  PopupMenuItem(
-                                    value: 1,
-                                    child: const Text("Delete"),
-                                    onTap: () {
-                                      OntapDelete(index, context);
-                                    },
-                                  ),
-                                  PopupMenuItem(
-                                    child: const Text("Edit"),
-                                    onTap: () {
-                                      playlistNameEditor =
-                                          playlistNameController;
-                                      Future.delayed(
-                                        const Duration(seconds: 0),
-                                        () => showDialog(
-                                          context: context,
-                                          builder: (context) {
-                                            return AlertDialog(
-                                              title: const Text(
-                                                "Rename Your Plalist",
-                                              ),
-                                              content: Form(
-                                                key: editorFormKey,
-                                                child: TextFormField(
-                                                  controller:
-                                                      playlistNameEditor,
-                                                  decoration:
-                                                      const InputDecoration(
-                                                    border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.black),
-                                                    ),
-                                                  ),
-                                                  validator: (value) {
-                                                    List<PlaylistModel>
-                                                        editValid = myPlaylist
-                                                            .values
-                                                            .toList();
-                                                    bool isAlreadyThere = editValid
-                                                        .where((element) =>
-                                                            element
-                                                                .playlistName ==
-                                                            value!.trim())
-                                                        .isNotEmpty;
-
-                                                    if (value!.trim().isEmpty) {
-                                                      return "Name required";
-                                                    }
-                                                    if (isAlreadyThere) {
-                                                      return "Existing Name";
-                                                    } else {
-                                                      return null;
-                                                    }
-                                                  },
-                                                ),
-                                              ),
-                                              actions: [
-                                                TextButton(
-                                                  onPressed: () {
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Text("Cancel"),
-                                                ),
-                                                TextButton(
-                                                  onPressed: () {
-                                                    final isValid =
-                                                        editorFormKey
-                                                            .currentState!
-                                                            .validate();
-                                                    if (isValid) {
-                                                      myPlaylist.putAt(
-                                                        index,
-                                                        PlaylistModel(
-                                                          playlistName:
-                                                              playlistNameEditor
-                                                                  .text,
-                                                          playlistSongs: [],
-                                                        ),
-                                                      );
-                                                      Navigator.pop(context);
-                                                    }
-                                                  },
-                                                  child: const Text("submit"),
-                                                ),
-                                              ],
-                                            );
-                                          },
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ];
-                              },
-                            ),
-                          );
-                        },
-                        separatorBuilder: (context, index) {
-                          return const Divider();
-                        },
-                        itemCount: playlistNameList.length);
+                          ),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return const Divider();
+                      },
+                      itemCount: playlistNameList.length,
+                    );
                   }
                 },
               ),
@@ -297,6 +303,8 @@ class OntapDelete {
               TextButton(
                 onPressed: () {
                   myPlaylist.deleteAt(index);
+                  BlocProvider.of<PlaylistListingBloc>(context)
+                      .add(PlayListShow());
                   Navigator.pop(context);
                   SnackAddDeleteMsg("Playlist removed", context);
                 },

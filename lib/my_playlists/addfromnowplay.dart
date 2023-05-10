@@ -1,23 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/adapters.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musi_city/application/playlist_list/playlist_listing_bloc.dart';
 import 'package:musi_city/functions/functions.dart';
 import '../functions/box_opening.dart';
 import '../main.dart';
 import '../models/home_models.dart';
 import '../models/playlist_model.dart';
 
-// ignore: must_be_immutable
-class AddFromNowPlay extends StatefulWidget {
+class AddFromNowPlay extends StatelessWidget {
   int songIndex;
   AddFromNowPlay({super.key, required this.songIndex});
 
   @override
-  State<AddFromNowPlay> createState() => _AddFromNowPlayState();
-}
-
-class _AddFromNowPlayState extends State<AddFromNowPlay> {
-  @override
   Widget build(BuildContext context) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      BlocProvider.of<PlaylistListingBloc>(context).add(PlayListShow());
+    });
     final mqheight = MediaQuery.of(context).size.height;
 
     return IconButton(
@@ -31,13 +29,15 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
               child: Column(
                 children: [
                   Text("My Playlist's", style: defaultTextStyle),
-                  ValueListenableBuilder(
-                    valueListenable: myPlaylist.listenable(),
-                    builder:
-                        (BuildContext, Box<PlaylistModel> addfromHomeplay, _) {
-                      List<PlaylistModel> addPlaylistName =
-                          addfromHomeplay.values.toList();
-                      if (addPlaylistName.isEmpty) {
+                  // ValueListenableBuilder(
+                  //   valueListenable: myPlaylist.listenable(),
+                  //   builder:
+                  //       (BuildContext, Box<PlaylistModel> addfromHomeplay, _) {
+                  // List<PlaylistModel> addPlaylistName =
+                  //     addfromHomeplay.values.toList();
+                  BlocBuilder<PlaylistListingBloc, PlaylistListingState>(
+                    builder: (context, state) {
+                       if (state.anNewPlayList.isEmpty) {
                         return Center(
                           child: Text(
                             "Playlist not created",
@@ -51,11 +51,12 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
                                 return InkWell(
                                   onTap: () {},
                                   child: ListTile(
-                                    leading: const Icon(Icons.library_music_sharp,
-                                       // color: whiteColor,
-                                        ),
+                                    leading: const Icon(
+                                      Icons.library_music_sharp,
+                                      // color: whiteColor,
+                                    ),
                                     title: Text(
-                                      addPlaylistName[index].playlistName,
+                                      state.anNewPlayList[index].playlistName,
                                       style: songNameStyle,
                                     ),
                                     onTap: () {
@@ -69,32 +70,32 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
                                       bool isAlreadyAdded =
                                           playlistSongdata.any((element) =>
                                               element.id ==
-                                              totalSongs[widget.songIndex].id);
+                                              totalSongs[songIndex].id);
                                       if (isAlreadyAdded == false) {
                                         playlistSongdata.add(
                                           AllSong(
                                               songName:
-                                                  totalSongs[widget.songIndex]
+                                                  totalSongs[songIndex]
                                                       .songName,
                                               artists:
-                                                  totalSongs[widget.songIndex]
+                                                  totalSongs[songIndex]
                                                       .artists,
                                               duration:
-                                                  totalSongs[widget.songIndex]
+                                                  totalSongs[songIndex]
                                                       .duration,
                                               songurl:
-                                                  totalSongs[widget.songIndex]
+                                                  totalSongs[songIndex]
                                                       .songurl,
-                                              id: totalSongs[widget.songIndex]
+                                              id: totalSongs[songIndex]
                                                   .id),
                                         );
                                         myPlaylist.putAt(
                                           index,
                                           PlaylistModel(
-                                              playlistName:
-                                                  addPlaylistName[index]
-                                                      .playlistName,
-                                              playlistSongs: playlistSongdata),
+                                            playlistName: state.anNewPlayList[index]
+                                                .playlistName,
+                                            playlistSongs: playlistSongdata,
+                                          ),
                                         );
                                         SnackAddDeleteMsg(
                                             "Added to playlist", context);
@@ -110,24 +111,23 @@ class _AddFromNowPlayState extends State<AddFromNowPlay> {
                               separatorBuilder: (context, index) {
                                 return const Divider(
                                   thickness: 1,
-                                 // color: whiteColor,
+                                  // color: whiteColor,
                                 );
                               },
                               itemCount: myPlaylist.length),
                         );
                       }
                     },
-                  ),
+                  )
                 ],
               ),
             );
           },
         );
-        
       },
       icon: const Icon(
         Icons.add,
-       // color: whiteColor,
+        // color: whiteColor,
         size: 30,
       ),
     );

@@ -69,7 +69,6 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PlaylistListingBloc(),
-      
         )
       ],
       child: MaterialApp(

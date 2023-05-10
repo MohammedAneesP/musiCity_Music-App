@@ -137,13 +137,19 @@ class PlaylistCreated extends StatelessWidget {
                           ),
                           trailing: IconButton(
                             onPressed: () {
-                              // setState(
-                              //   () {
                               createdPlaySong.removeWhere((element) =>
                                   element.id == createdPlaySong[index].id);
                               playlistConvrtAudio.removeAt(index);
-                              //   },
-                              // );
+                              myPlaylist.putAt(
+                                playlistIndex,
+                                PlaylistModel(
+                                  playlistName: crntPlaylstName,
+                                  playlistSongs: createdPlaySong,
+                                ),
+                              );
+                              BlocProvider.of<PlaylistListingBloc>(context)
+                                  .add(PlayListShow());
+
                               SnackAddDeleteMsg(
                                   "Removed from playlist", context);
                             },

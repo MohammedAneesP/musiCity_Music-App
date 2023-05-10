@@ -5,16 +5,10 @@ import 'package:musi_city/moreOptions/privacypolicy.dart';
 import 'package:musi_city/moreOptions/terms&conditions.dart';
 import 'package:switcher_button/switcher_button.dart';
 
-class MoreOPtionScreen extends StatefulWidget {
-  const MoreOPtionScreen({super.key});
-
-  @override
-  State<MoreOPtionScreen> createState() => _MoreOPtionScreenState();
-}
-
+class MoreOPtionScreen extends StatelessWidget {
+   MoreOPtionScreen({super.key});
 bool musicNotify = true;
-
-class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
+  
   AssetsAudioPlayer moreAudioplayer = AssetsAudioPlayer.withId("0");
   @override
   Widget build(BuildContext context) {
@@ -110,11 +104,11 @@ class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
                 // ),
                 InkWell(
                   onTap: () {
-                    aboutPopUp();
+                    aboutPopUp(context);
                   },
                   child: ListTile(
                     title: Text(
-                      listOfOptiions[4],
+                      listOfOptiions[3],
                       style: songNameStyle,
                     ),
                     trailing: listOfOptionsIcons[1],
@@ -139,7 +133,7 @@ class _MoreOPtionScreenState extends State<MoreOPtionScreen> {
     );
   }
 
-  aboutPopUp() {
+  aboutPopUp(context) {
     showAboutDialog(
       context: context,
       applicationName: 'musiCity',

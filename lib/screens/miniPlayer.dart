@@ -64,48 +64,46 @@ class _MiniPlayerBottomState extends State<MiniPlayerBottom> {
                         ),
                       );
                     },
-                    child: Container(
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            width: mqwidth * .02,
-                          ),
-                          SizedBox(
-                            height: mqheight * 0.065,
-                            width: mqwidth * 0.14,
-                            child: QueryArtworkWidget(
-                              id: int.parse(playing.audio.audio.metas.id!),
-                              type: ArtworkType.AUDIO,
-                              artworkFit: BoxFit.cover,
-                              artworkBorder: BorderRadius.circular(70),
-                              artworkQuality: FilterQuality.high,
-                              nullArtworkWidget: CircleAvatar(
-                                radius: 28,
-                                backgroundImage: AssetImage(
-                                    leadingImage),
-                              ),
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: mqwidth * .02,
+                        ),
+                        SizedBox(
+                          height: mqheight * 0.065,
+                          width: mqwidth * 0.14,
+                          child: QueryArtworkWidget(
+                            id: int.parse(playing.audio.audio.metas.id!),
+                            type: ArtworkType.AUDIO,
+                            artworkFit: BoxFit.cover,
+                            artworkBorder: BorderRadius.circular(70),
+                            artworkQuality: FilterQuality.high,
+                            nullArtworkWidget: CircleAvatar(
+                              radius: 28,
+                              backgroundImage: AssetImage(
+                                  leadingImage),
                             ),
                           ),
-                          SizedBox(
-                            height: 70,
-                            width: mqwidth * .4,
-                            child: ListTile(
-                              title: Text(
-                                player.getCurrentAudioTitle,
-                                style: const TextStyle(
-                                  //  color: whiteColor,
-                                    overflow: TextOverflow.ellipsis),
-                              ),
-                              subtitle: Text(
-                                player.getCurrentAudioArtist,
-                                style: const TextStyle(
-                                   // color: Colors.white70,
-                                    overflow: TextOverflow.ellipsis),
-                              ),
+                        ),
+                        SizedBox(
+                          height: 70,
+                          width: mqwidth * .4,
+                          child: ListTile(
+                            title: Text(
+                              player.getCurrentAudioTitle,
+                              style: const TextStyle(
+                                //  color: whiteColor,
+                                  overflow: TextOverflow.ellipsis),
+                            ),
+                            subtitle: Text(
+                              player.getCurrentAudioArtist,
+                              style: const TextStyle(
+                                 // color: Colors.white70,
+                                  overflow: TextOverflow.ellipsis),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                   ),
                   SizedBox(

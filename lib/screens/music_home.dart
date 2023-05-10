@@ -43,7 +43,7 @@ class MusiHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<MusicHomeScreenBloc>(context).add(HomeScreenSong());
-      // BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
+      
     });
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
@@ -97,7 +97,7 @@ class MusiHomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const MoreOPtionScreen(),
+                                builder: (context) =>  MoreOPtionScreen(),
                               ),
                             );
                           },

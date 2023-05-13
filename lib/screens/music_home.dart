@@ -9,10 +9,10 @@ import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/models/mostly_model.dart';
 import 'package:musi_city/models/recently_model.dart';
-import 'package:musi_city/moreOptions/more_option.dart';
+import 'package:musi_city/more_options/more_option.dart';
 import 'package:musi_city/my_playlists/add_fromhome.dart';
-import 'package:musi_city/nowPlaying/nowplaying_screen.dart';
-import 'package:musi_city/searchScreen/searchscreen.dart';
+import 'package:musi_city/now_playing/nowplaying_screen.dart';
+import 'package:musi_city/search_screen/searchscreen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MusiHomeScreen extends StatelessWidget {
@@ -84,7 +84,7 @@ class MusiHomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) => const SearchScreen(),
+                                builder: (context) =>  SearchScreen(),
                               ),
                             );
                           },

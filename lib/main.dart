@@ -6,6 +6,7 @@ import 'package:musi_city/application/fav_now_play_button/fav_now_play_button_bl
 import 'package:musi_city/application/mostly_played/mostly_played_bloc.dart';
 import 'package:musi_city/application/music_home_screen/music_home_screen_bloc.dart';
 import 'package:musi_city/application/playlist_list/playlist_listing_bloc.dart';
+import 'package:musi_city/application/search_list/search_list_bloc.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/screens/splashscreen.dart';
 import 'application/favorite_list/favorite_list_bloc.dart';
@@ -69,6 +70,10 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => PlaylistListingBloc(),
+        ),
+        BlocProvider(
+          create: (context) => SearchListBloc(),
+          child: Container(),
         )
       ],
       child: MaterialApp(

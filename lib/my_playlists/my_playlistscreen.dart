@@ -187,7 +187,7 @@ class MyPlaylist extends StatelessWidget {
                                       () => showDialog(
                                         context: context,
                                         builder: (context) {
-                                          playlistNameEditor =TextEditingController(text: state.anNewPlayList[index].playlistName);
+                                          playlistNameEditor = TextEditingController(text: state.anNewPlayList[index].playlistName);
                                           return AlertDialog(
                                             title: const Text(
                                               "Rename Your Plalist",

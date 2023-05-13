@@ -6,7 +6,7 @@ import 'package:musi_city/application/playlist_list/playlist_listing_bloc.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/models/home_models.dart';
-import 'package:musi_city/nowPlaying/nowplaying_screen.dart';
+import 'package:musi_city/now_playing/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart' hide PlaylistModel;
 import '../models/playlist_model.dart';
 
@@ -75,6 +75,7 @@ class PlaylistCreated extends StatelessWidget {
                 builder: (context, state) {
                   List<AllSong> createdPlaySong =
                       state.anNewPlayList[playlistIndex].playlistSongs.toList();
+                      playlistConvrtAudio.clear();
                   for (var element in createdPlaySong) {
                     playlistConvrtAudio.add(
                       Audio.file(

@@ -37,7 +37,7 @@ class AddFromHomePlaylist extends StatelessWidget {
               //     addfromHomeplay.values.toList();
               child: BlocBuilder<PlaylistListingBloc, PlaylistListingState>(
                 builder: (context, state) {
-                if (state.anNewPlayList.isEmpty) {
+                  if (state.anNewPlayList.isEmpty) {
                     return Center(
                       child: Text(
                         "Playlist not created",
@@ -54,76 +54,73 @@ class AddFromHomePlaylist extends StatelessWidget {
                         Expanded(
                           child: SizedBox(
                             child: ListView.separated(
-                                itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () {},
-                                    child: ListTile(
-                                      leading: const Icon(
-                                        Icons.library_music_sharp,
-                                        //color: whiteColor,
-                                      ),
-                                      title: Text(
-                                        state.anNewPlayList[index].playlistName,
-                                        style: songNameStyle,
-                                      ),
-                                      onTap: () { 
-                                        PlaylistModel? playSongName =
-                                            myPlaylist.getAt(index);
-                                        List<AllSong>? playlistSongdata =
-                                            playSongName!.playlistSongs;
-                                        List<AllSong> totalSongs =
-                                            allSongList.values.toList();
-
-                                        bool isAlreadyAdded =
-                                            playlistSongdata.any((element) =>
-                                                element.id ==
-                                                totalSongs[songIndex]
-                                                    .id);
-                                        if (isAlreadyAdded == false) {
-                                          playlistSongdata.add(
-                                            AllSong(
-                                                songName:
-                                                    totalSongs[songIndex]
-                                                        .songName,
-                                                artists:
-                                                    totalSongs[songIndex]
-                                                        .artists,
-                                                duration:
-                                                    totalSongs[songIndex]
-                                                        .duration,
-                                                songurl:
-                                                    totalSongs[songIndex]
-                                                        .songurl,
-                                                id: totalSongs[songIndex]
-                                                    .id,),
-                                          );
-                                          myPlaylist.put(
-                                            index,
-                                            PlaylistModel(
-                                              playlistName:
-                                                  playSongName.playlistName,
-                                              playlistSongs: playlistSongdata,
-                                            ),
-                                          );
-                                          SnackAddDeleteMsg(
-                                              "Added to playlist", context);
-                                        } else {
-                                          SnackAddDeleteMsg(
-                                              "Already exist", context);
-                                        }
-                                        Navigator.pop(context);
-                                      },
+                              itemBuilder: (context, index) {
+                                return InkWell(
+                                  onTap: () {},
+                                  child: ListTile(
+                                    leading: const Icon(
+                                      Icons.library_music_sharp,
+                                      //color: whiteColor,
                                     ),
-                                  );
-                                },
-                                separatorBuilder: (context, index) {
-                                  return const Divider(
-                                    // color: whiteColor,
-                                    indent: 20,
-                                    endIndent: 20,
-                                  );
-                                },
-                                itemCount: myPlaylist.length),
+                                    title: Text(
+                                      state.anNewPlayList[index].playlistName,
+                                      style: songNameStyle,
+                                    ),
+                                    onTap: () {
+                                      PlaylistModel? playSongName =
+                                          myPlaylist.getAt(index);
+                                      List<AllSong>? playlistSongdata =
+                                          playSongName!.playlistSongs;
+                                      List<AllSong> totalSongs =
+                                          allSongList.values.toList();
+
+                                      bool isAlreadyAdded =
+                                          playlistSongdata.any((element) =>
+                                              element.id ==
+                                              totalSongs[songIndex].id);
+                                      if (isAlreadyAdded == false) {
+                                        playlistSongdata.add(
+                                          AllSong(
+                                            songName:
+                                                totalSongs[songIndex].songName,
+                                            artists:
+                                                totalSongs[songIndex].artists,
+                                            duration:
+                                                totalSongs[songIndex].duration,
+                                            songurl:
+                                                totalSongs[songIndex].songurl,
+                                            id: totalSongs[songIndex].id,
+                                          ),
+                                        );
+                                        myPlaylist.putAt(
+                                          index,
+                                          PlaylistModel(
+                                            playlistName: state
+                                                .anNewPlayList[index]
+                                                .playlistName,
+                                            playlistSongs: playlistSongdata,
+                                          ),
+                                        );
+                                        SnackAddDeleteMsg(
+                                            "Added to playlist", context);
+                                      } else {
+                                        SnackAddDeleteMsg(
+                                            "Already exist", context);
+                                      }
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return const Divider(
+                                  // color: whiteColor,
+                                  indent: 20,
+                                  endIndent: 20,
+                                );
+                              },
+                              itemCount: myPlaylist.length,
+                            ),
                           ),
                         ),
                       ],

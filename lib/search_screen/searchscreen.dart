@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musi_city/application/search_list/search_list_bloc.dart';
 import 'package:musi_city/functions/functions.dart';
-import 'package:musi_city/main.dart';
-import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/now_playing/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 

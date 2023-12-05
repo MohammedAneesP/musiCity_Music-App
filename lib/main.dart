@@ -9,6 +9,7 @@ import 'package:musi_city/application/playlist_list/playlist_listing_bloc.dart';
 import 'package:musi_city/application/search_list/search_list_bloc.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/screens/splashscreen.dart';
+import 'application/bloc/theme_changer_bloc.dart';
 import 'application/favorite_list/favorite_list_bloc.dart';
 import 'application/recently_played/recently_played_bloc.dart';
 import 'functions/box_opening.dart';
@@ -48,48 +49,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => BottomNavBloc(),
-        ),
-        BlocProvider(
-          create: (context) => MusicHomeScreenBloc(),
-        ),
-        BlocProvider(
-          create: (context) => FavoriteListBloc(),
-        ),
-        BlocProvider(
-          create: (context) => FavNowPlayButtonBloc(),
-          child: Container(),
-        ),
-        BlocProvider(
-          create: (context) => RecentlyPlayedBloc(),
-        ),
-        BlocProvider(
-          create: (context) => MostlyPlayedBloc(),
-          child: Container(),
-        ),
-        BlocProvider(
-          create: (context) => PlaylistListingBloc(),
-        ),
-        BlocProvider(
-          create: (context) => SearchListBloc(),
-          child: Container(),
-        )
+        BlocProvider(create: (context) => BottomNavBloc()),
+        BlocProvider(create: (context) => MusicHomeScreenBloc()),
+        BlocProvider(create: (context) => FavoriteListBloc()),
+        BlocProvider(create: (context) => FavNowPlayButtonBloc()),
+        BlocProvider(create: (context) => RecentlyPlayedBloc()),
+        BlocProvider(create: (context) => MostlyPlayedBloc()),
+        BlocProvider(create: (context) => PlaylistListingBloc()),
+        BlocProvider(create: (context) => SearchListBloc()),
+        BlocProvider(create: (context) => ThemeChangerBloc())
       ],
-      child: MaterialApp(
-        theme: ThemeData(
-          // useMaterial3: true,
-          backgroundColor: Colors.black,
-          scaffoldBackgroundColor: Colors.white,
-          colorScheme: const ColorScheme.light(),
-          primaryColor: Colors.white,
-          iconTheme: const IconThemeData(
-            color: Colors.black,
-          ),
-        ),
-        title: "musiCity",
-        home: const SplashScreen(),
-        debugShowCheckedModeBanner: false,
+      child: BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
+        builder: (context, state) {
+          return MaterialApp(
+              theme: state.anTheme,
+              title: "musiCity",
+              home: const SplashScreen(),
+              debugShowCheckedModeBanner: false,
+            );
+        },
       ),
     );
   }

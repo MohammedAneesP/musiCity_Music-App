@@ -1,14 +1,16 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:musi_city/application/bloc/theme_changer_bloc.dart';
 import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/more_options/privacypolicy.dart';
 import 'package:musi_city/more_options/terms&conditions.dart';
 import 'package:switcher_button/switcher_button.dart';
 
 class MoreOPtionScreen extends StatelessWidget {
-   MoreOPtionScreen({super.key});
-bool musicNotify = true;
-  
+  MoreOPtionScreen({super.key});
+  bool musicNotify = true;
+
   AssetsAudioPlayer moreAudioplayer = AssetsAudioPlayer.withId("0");
   @override
   Widget build(BuildContext context) {
@@ -84,7 +86,6 @@ bool musicNotify = true;
                     trailing: SwitcherButton(
                       offColor: Colors.grey,
                       onColor: Colors.blue,
-                      size: 40,
                       value: true,
                       onChange: (value) {
                         moreAudioplayer.showNotification == musicNotify;
@@ -92,16 +93,32 @@ bool musicNotify = true;
                     ),
                   ),
                 ),
-                // InkWell(
-                //   onTap: () {},
-                //   child: ListTile(
-                //     title: Text(
-                //       listOfOptiions[3],
-                //       style: songNameStyle,
-                //     ),
-                //     trailing: ,
-                //   ),
-                // ),
+                InkWell(
+                  onTap: () {},
+                  child: ListTile(
+                    title: Text(
+                      "Theme Change",
+                      style: songNameStyle,
+                    ),
+                    trailing: BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
+                      builder: (context, state) {
+                        return SwitcherButton(
+                          offColor: Colors.grey,
+                          onColor: Colors.blue,
+                          onChange: (value) {
+                            if (value == true) {
+                              BlocProvider.of<ThemeChangerBloc>(context)
+                                  .add(IsDarkMode());
+                            } else {
+                              BlocProvider.of<ThemeChangerBloc>(context)
+                                  .add(IsLightMode());
+                            }
+                          },
+                        );
+                      },
+                    ),
+                  ),
+                ),
                 InkWell(
                   onTap: () {
                     aboutPopUp(context);

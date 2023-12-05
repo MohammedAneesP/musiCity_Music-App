@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+// import 'package:google_fonts/google_fonts.dart';
 import 'package:readmore/readmore.dart';
 
 const musiCityBgColor = Color.fromARGB(255, 113, 14, 14);
@@ -24,9 +24,12 @@ dynamic conatainerDecoration = BoxDecoration(
   ],
 );
 
-final defaultTextStyle = GoogleFonts.biryani(fontSize: 25, );
-final headingStyle = GoogleFonts.seymourOne(fontSize: 25,fontWeight: FontWeight.w800);
-final songNameStyle = GoogleFonts.rowdies();
+final defaultTextStyle = TextStyle(fontSize: 25);
+//  GoogleFonts.biryani(fontSize: 25, );
+final headingStyle = TextStyle(fontSize: 25,fontWeight: FontWeight.w800);
+//  GoogleFonts.seymourOne(fontSize: 25,fontWeight: FontWeight.w800);
+final songNameStyle = TextStyle(fontStyle: FontStyle.italic);
+// GoogleFonts.rowdies();
 String areYouSure = "Are you sure..?";
 String yesText = "Yes";
 String noText = "No";
@@ -106,7 +109,7 @@ Widget moreOptinParaHead(context, String paraHead) {
       Padding(
         padding: EdgeInsets.fromLTRB(mqwidth * 0.03, 0, mqwidth * 0.03, 0),
         child: Text(paraHead,
-            style: GoogleFonts.rowdies(fontSize: 20, )),
+            style: TextStyle(fontSize: 20, )),
       ),
     ],
   );

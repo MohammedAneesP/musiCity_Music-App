@@ -43,7 +43,6 @@ class MusiHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<MusicHomeScreenBloc>(context).add(HomeScreenSong());
-      
     });
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
@@ -84,7 +83,7 @@ class MusiHomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) =>  SearchScreen(),
+                                builder: (context) => SearchScreen(),
                               ),
                             );
                           },
@@ -97,7 +96,7 @@ class MusiHomeScreen extends StatelessWidget {
                           onPressed: () {
                             Navigator.of(context).push(
                               MaterialPageRoute(
-                                builder: (context) =>  MoreOPtionScreen(),
+                                builder: (context) => MoreOPtionScreen(),
                               ),
                             );
                           },
@@ -118,13 +117,16 @@ class MusiHomeScreen extends StatelessWidget {
               child: BlocBuilder<MusicHomeScreenBloc, MusicHomeScreenState>(
                 builder: (context, state) {
                   for (var element in state.homeSongs) {
-                    homeMusicConvrt.add(Audio.file(
-                      element.songurl,
-                      metas: Metas(
+                    homeMusicConvrt.add(
+                      Audio.file(
+                        element.songurl,
+                        metas: Metas(
                           id: element.id.toString(),
                           title: element.songName,
-                          artist: element.artists),
-                    ));
+                          artist: element.artists,
+                        ),
+                      ),
+                    );
                   }
                   List<MostlyModel> homeMostPlayed =
                       mostlyPlayedBox.values.toList();
@@ -137,7 +139,7 @@ class MusiHomeScreen extends StatelessWidget {
                     itemBuilder: (context, index) {
                       AllSong homeSongs = state.homeSongs[index];
                       RecentlyModel recentSongs;
-                       MostlyModel homeMostlyPlayObj = homeMostPlayed[index];
+                      MostlyModel homeMostlyPlayObj = homeMostPlayed[index];
 
                       return ListTile(
                         onTap: () {
@@ -159,8 +161,9 @@ class MusiHomeScreen extends StatelessWidget {
                             recentId: homeSongs.id,
                           );
                           updateRecentlyPlayed(recentSongs, index, context);
-                           BlocProvider.of<RecentlyPlayedBloc>(context).add(RecentShowListEvent());
-                           updateMostlyPlayed(index, homeMostlyPlayObj);
+                          BlocProvider.of<RecentlyPlayedBloc>(context)
+                              .add(RecentShowListEvent());
+                          updateMostlyPlayed(index, homeMostlyPlayObj);
                           // setState(() {});
                           Navigator.of(context).push(
                             MaterialPageRoute(

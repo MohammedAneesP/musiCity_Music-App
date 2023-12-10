@@ -6,9 +6,9 @@ import 'package:musi_city/application/playlist_list/playlist_listing_bloc.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/models/home_models.dart';
-import 'package:musi_city/now_playing/nowplaying_screen.dart';
+import 'package:musi_city/screens/now_playing/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart' hide PlaylistModel;
-import '../models/playlist_model.dart';
+import '../../models/playlist_model.dart';
 
 class PlaylistCreated extends StatelessWidget {
   List<AllSong> allPlaylistSong = [];
@@ -89,7 +89,7 @@ class PlaylistCreated extends StatelessWidget {
                     );
                   }
                   if (state.anNewPlayList.isEmpty) {
-                    return Center(
+                    return const Center(
                       child: Text("Songs not added", style: defaultTextStyle),
                     );
                   } else {

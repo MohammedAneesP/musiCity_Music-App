@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musi_city/application/bottom_nav/bottom_nav_bloc.dart';
-import 'package:musi_city/favorites/favorite_screen.dart';
+import 'package:musi_city/screens/favorites/favorite_screen.dart';
 import 'package:musi_city/screens/miniPlayer.dart';
 import 'package:musi_city/screens/music_home.dart';
 import 'package:musi_city/screens/playlists.dart';

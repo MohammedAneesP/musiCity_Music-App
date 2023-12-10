@@ -3,42 +3,35 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:musi_city/application/search_list/search_list_bloc.dart';
 import 'package:musi_city/functions/functions.dart';
-import 'package:musi_city/now_playing/nowplaying_screen.dart';
+import 'package:musi_city/screens/now_playing/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class SearchScreen extends StatelessWidget {
-  SearchScreen({super.key});
+class SearchScreen extends StatefulWidget {
+  const SearchScreen({super.key});
 
+  @override
+  State<SearchScreen> createState() => _SearchScreenState();
+}
+
+class _SearchScreenState extends State<SearchScreen> {
   // late List<AllSong> searchAllSong;
   final TextEditingController searchcontroller = TextEditingController();
+
   List<Audio> searchedSong = [];
+
   AssetsAudioPlayer searchAudioplyr = AssetsAudioPlayer.withId("0");
+
 // late List<AllSong> searchListingSong = List.from(searchAllSong);
+  @override
+  void initState() {
+    BlocProvider.of<SearchListBloc>(context).add(InitialListing());
 
-  // @override
-  // void initState() {
-  //   searchAllSong = allSongList.values.toList();
-  //   for (var searchitem in searchListingSong) {
-  //     searchedSong.add(
-  //       Audio.file(
-  //         searchitem.songurl,
-  //         metas: Metas(
-  //           title: searchitem.songName,
-  //           artist: searchitem.artists,
-  //           id: searchitem.id.toString(),
-  //         ),
-  //       ),
-  //     );
-  //   }
-
-  //   super.initState();
-  // }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      BlocProvider.of<SearchListBloc>(context).add(InitialListing());
-    });
+   // WidgetsBinding.instance.addPostFrameCallback((_) {});
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
 
@@ -60,15 +53,15 @@ class SearchScreen extends StatelessWidget {
                   width: mqwidth * .85,
                   child: TextFormField(
                     controller: searchcontroller,
-                    onTap: () {
-                      FocusManager.instance.primaryFocus?.unfocus();
-                    },
+                    // onTap: () {
+                    //   FocusManager.instance.primaryFocus?.unfocus();
+                    // },
                     onChanged: (value) {
                       BlocProvider.of<SearchListBloc>(context)
                           .add(SearchListingShowing(query: value));
                     },
                     decoration: InputDecoration(
-                      contentPadding:const EdgeInsets.fromLTRB(12, 15, 12, 8),
+                      contentPadding: const EdgeInsets.fromLTRB(12, 15, 12, 8),
                       hintText: "Songs",
                       filled: true,
                       enabledBorder: OutlineInputBorder(
@@ -137,7 +130,7 @@ class SearchScreen extends StatelessWidget {
                             }
                             return ListTile(
                               onTap: () {
-                                FocusScope. of(context). unfocus();
+                                FocusScope.of(context).unfocus();
                                 searchAudioplyr.open(
                                   Playlist(
                                     audios: searchedSong,
@@ -164,8 +157,8 @@ class SearchScreen extends StatelessWidget {
                                   artworkBorder: BorderRadius.circular(30),
                                   nullArtworkWidget: const CircleAvatar(
                                     radius: 25,
-                                    backgroundImage: AssetImage(
-                                        'assets/pexels-sebastian-ervi-1763075.jpg'),
+                                    backgroundImage:
+                                        AssetImage('assets/_.jpeg'),
                                   )),
                               title: Text(
                                 state.filteringSong[index].songName,
@@ -195,7 +188,7 @@ class SearchScreen extends StatelessWidget {
                           }
                           return ListTile(
                             onTap: () {
-                              FocusScope. of(context). unfocus();
+                              FocusScope.of(context).unfocus();
                               searchAudioplyr.open(
                                 Playlist(
                                   audios: searchedSong,
@@ -222,8 +215,7 @@ class SearchScreen extends StatelessWidget {
                                 artworkBorder: BorderRadius.circular(30),
                                 nullArtworkWidget: const CircleAvatar(
                                   radius: 25,
-                                  backgroundImage: AssetImage(
-                                      'assets/pexels-sebastian-ervi-1763075.jpg'),
+                                  backgroundImage: AssetImage('assets/_.jpeg'),
                                 )),
                             title: Text(
                               state.searchStateSongs[index].songName,

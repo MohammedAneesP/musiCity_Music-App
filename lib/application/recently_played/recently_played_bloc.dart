@@ -1,4 +1,5 @@
-import 'package:bloc/bloc.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/models/recently_model.dart';
@@ -11,6 +12,11 @@ class RecentlyPlayedBloc extends Bloc<RecentlyPlayedEvent, RecentlyPlayedState> 
     on<RecentShowListEvent>((event, emit) {
       List<RecentlyModel> recBlocList = recentlyPlayedBox.values.toList();
       return emit(RecentlyPlayedState(recentMusic: recBlocList));
+    });
+    on<RecentlyPlayClear>((event, emit) {
+       List<RecentlyModel> recentMusic = [];
+      recentlyPlayedBox.clear();
+      return emit(RecentlyPlayedState(recentMusic: recentMusic));
     });
   }
 }

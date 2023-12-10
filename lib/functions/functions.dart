@@ -24,11 +24,11 @@ dynamic conatainerDecoration = BoxDecoration(
   ],
 );
 
-final defaultTextStyle = TextStyle(fontSize: 25);
+const defaultTextStyle = TextStyle(fontSize: 25);
 //  GoogleFonts.biryani(fontSize: 25, );
-final headingStyle = TextStyle(fontSize: 25,fontWeight: FontWeight.w800);
+const headingStyle = TextStyle(fontSize: 25,fontWeight: FontWeight.w800);
 //  GoogleFonts.seymourOne(fontSize: 25,fontWeight: FontWeight.w800);
-final songNameStyle = TextStyle(fontStyle: FontStyle.italic);
+const songNameStyle = TextStyle(fontStyle: FontStyle.italic);
 // GoogleFonts.rowdies();
 String areYouSure = "Are you sure..?";
 String yesText = "Yes";
@@ -109,7 +109,7 @@ Widget moreOptinParaHead(context, String paraHead) {
       Padding(
         padding: EdgeInsets.fromLTRB(mqwidth * 0.03, 0, mqwidth * 0.03, 0),
         child: Text(paraHead,
-            style: TextStyle(fontSize: 20, )),
+            style: const TextStyle(fontSize: 20, )),
       ),
     ],
   );

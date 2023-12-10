@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:musi_city/functions/functions.dart';
-import 'package:musi_city/more_options/terms&conditions.dart';
+import 'package:musi_city/screens/more_options/terms&conditions.dart';
 
 class PrivacyAndPolicy extends StatelessWidget {
   const PrivacyAndPolicy({super.key});

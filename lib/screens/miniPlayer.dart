@@ -9,7 +9,7 @@ import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/main.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/models/recently_model.dart';
-import 'package:musi_city/now_playing/nowplaying_screen.dart';
+import 'package:musi_city/screens/now_playing/nowplaying_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class MiniPlayerBottom extends StatefulWidget {

@@ -4,3 +4,5 @@ part of 'recently_played_bloc.dart';
 abstract class RecentlyPlayedEvent {}
 
 class RecentShowListEvent extends RecentlyPlayedEvent {}
+
+class RecentlyPlayClear extends RecentlyPlayedEvent{}

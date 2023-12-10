@@ -7,7 +7,7 @@ import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/main.dart';
 import 'package:musi_city/models/favorite_model.dart';
 import 'package:musi_city/models/home_models.dart';
-import '../functions/functions.dart';
+import '../../functions/functions.dart';
 
 class AddToFAvIcon extends StatefulWidget {
   int index;

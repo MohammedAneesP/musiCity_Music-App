@@ -1,11 +1,13 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:musi_city/application/bloc/theme_changer_bloc.dart';
+import 'package:musi_city/application/theme_changer/theme_changer_bloc.dart';
 import 'package:musi_city/functions/functions.dart';
-import 'package:musi_city/more_options/privacypolicy.dart';
-import 'package:musi_city/more_options/terms&conditions.dart';
+import 'package:musi_city/screens/more_options/privacypolicy.dart';
+import 'package:musi_city/screens/more_options/terms&conditions.dart';
 import 'package:switcher_button/switcher_button.dart';
+
+import 'widgets/constants.dart';
 
 class MoreOPtionScreen extends StatelessWidget {
   MoreOPtionScreen({super.key});
@@ -18,7 +20,6 @@ class MoreOPtionScreen extends StatelessWidget {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      //  backgroundColor: musiCityBgColor,
       body: Column(
         children: [
           Row(
@@ -40,7 +41,7 @@ class MoreOPtionScreen extends StatelessWidget {
               Padding(
                 padding:
                     EdgeInsets.fromLTRB(mqwidth * .1, mqheight * .045, 0, 0),
-                child: Text(
+                child: const Text(
                   "More Options",
                   style: headingStyle,
                 ),
@@ -96,7 +97,7 @@ class MoreOPtionScreen extends StatelessWidget {
                 InkWell(
                   onTap: () {},
                   child: ListTile(
-                    title: Text(
+                    title: const Text(
                       "Theme Change",
                       style: songNameStyle,
                     ),
@@ -171,48 +172,3 @@ Mohammed Anees''')
     );
   }
 }
-
-List listOfOptiions = [
-  "Terms and Conditions",
-  "Privacy and Policy",
-  "Notifications",
-  "About",
-];
-
-List listOfOptionsIcons = [
-  GestureDetector(
-    onTap: () {},
-    child: const Icon(
-      Icons.chevron_right_rounded,
-      // color: Colors.white,
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Icon(
-      Icons.chevron_right_rounded,
-      // color: Colors.white,
-    ),
-  ),
-  IconButton(
-    onPressed: () {},
-    icon: const Icon(
-      Icons.toggle_off_outlined,
-      // color: Colors.white,
-    ),
-  ),
-  IconButton(
-    onPressed: () {},
-    icon: const Icon(
-      Icons.toggle_off_outlined,
-      // color: Colors.white,
-    ),
-  ),
-  GestureDetector(
-    onTap: () {},
-    child: const Icon(
-      Icons.chevron_right_rounded,
-      // color: Colors.white,
-    ),
-  ),
-];

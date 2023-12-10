@@ -39,7 +39,7 @@ class AddToFavorite extends StatelessWidget {
               Navigator.pop(context);
               SnackAddDeleteMsg("Added to Favorite's", context);
             },
-            child: Text(
+            child: const Text(
               "Add to Favorite",
               style: songNameStyle,
             ),
@@ -53,7 +53,7 @@ class AddToFavorite extends StatelessWidget {
               SnackAddDeleteMsg("Revomed", context);
               Navigator.pop(context);
             },
-            child: Text(
+            child: const Text(
               "Remove From Favorite's",
               style: songNameStyle,
             ),

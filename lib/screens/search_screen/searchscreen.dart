@@ -31,7 +31,7 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
-   // WidgetsBinding.instance.addPostFrameCallback((_) {});
+    // WidgetsBinding.instance.addPostFrameCallback((_) {});
     final mqheight = MediaQuery.of(context).size.height;
     final mqwidth = MediaQuery.of(context).size.width;
 
@@ -97,10 +97,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   builder: (context, state) {
                     if (state.searchStateSongs.isEmpty) {
                       return const Center(
-                        child: Text(
-                          "No Song Found",
-                          style: TextStyle(color: Colors.black),
-                        ),
+                        child: Text("No Song Found"),
                       );
                     } else if (state.isNull == true) {
                       return const Center(

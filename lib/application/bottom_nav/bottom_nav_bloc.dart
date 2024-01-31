@@ -1,5 +1,4 @@
-import 'package:bloc/bloc.dart';
-
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'bottom_nav_event.dart';
 part 'bottom_nav_state.dart';

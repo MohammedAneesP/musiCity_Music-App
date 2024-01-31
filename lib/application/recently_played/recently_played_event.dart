@@ -5,4 +5,3 @@ abstract class RecentlyPlayedEvent {}
 
 class RecentShowListEvent extends RecentlyPlayedEvent {}
 
-class RecentlyPlayClear extends RecentlyPlayedEvent{}

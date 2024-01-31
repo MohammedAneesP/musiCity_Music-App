@@ -13,10 +13,5 @@ class RecentlyPlayedBloc extends Bloc<RecentlyPlayedEvent, RecentlyPlayedState> 
       List<RecentlyModel> recBlocList = recentlyPlayedBox.values.toList();
       return emit(RecentlyPlayedState(recentMusic: recBlocList));
     });
-    on<RecentlyPlayClear>((event, emit) {
-       List<RecentlyModel> recentMusic = [];
-      recentlyPlayedBox.clear();
-      return emit(RecentlyPlayedState(recentMusic: recentMusic));
-    });
   }
 }

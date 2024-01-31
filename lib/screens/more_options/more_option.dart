@@ -20,133 +20,134 @@ class MoreOPtionScreen extends StatelessWidget {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: Column(
-        children: [
-          Row(
-            children: [
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(mqwidth * .008, mqheight * .045, 0, 0),
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new_rounded,
-                    size: 20,
-                    //  color: Colors.white,
-                  ),
-                ),
-              ),
-              Padding(
-                padding:
-                    EdgeInsets.fromLTRB(mqwidth * .1, mqheight * .045, 0, 0),
-                child: const Text(
-                  "More Options",
-                  style: headingStyle,
-                ),
-              )
-            ],
-          ),
-          SizedBox(
-            height: mqheight * .03,
-          ),
-          SizedBox(
-            height: mqheight * .5,
-            child: Column(
+      body: SafeArea(
+        child: Column(
+          children: [
+            Row(
               children: [
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const TermsAndConditions(),
-                    ));
-                  },
-                  child: ListTile(
-                    title: Text(
-                      listOfOptiions[0],
-                      style: songNameStyle,
-                    ),
-                    trailing: listOfOptionsIcons[1],
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const PrivacyAndPolicy(),
-                    ));
-                  },
-                  child: ListTile(
-                    title: Text(listOfOptiions[1], style: songNameStyle),
-                    trailing: listOfOptionsIcons[1],
-                  ),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: ListTile(
-                    title: Text(listOfOptiions[2], style: songNameStyle),
-                    trailing: SwitcherButton(
-                      offColor: Colors.grey,
-                      onColor: Colors.blue,
-                      value: true,
-                      onChange: (value) {
-                        moreAudioplayer.showNotification == musicNotify;
-                      },
+                Padding(
+                  padding:
+                      EdgeInsets.fromLTRB(mqwidth * .008,0, 0, 0),
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new_rounded,
+                      size: 20,
+                      //  color: Colors.white,
                     ),
                   ),
                 ),
-                InkWell(
-                  onTap: () {},
-                  child: ListTile(
-                    title: const Text(
-                      "Theme Change",
-                      style: songNameStyle,
-                    ),
-                    trailing: BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
-                      builder: (context, state) {
-                        return SwitcherButton(
-                          offColor: Colors.grey,
-                          onColor: Colors.blue,
-                          onChange: (value) {
-                            if (value == true) {
-                              BlocProvider.of<ThemeChangerBloc>(context)
-                                  .add(IsDarkMode());
-                            } else {
-                              BlocProvider.of<ThemeChangerBloc>(context)
-                                  .add(IsLightMode());
-                            }
-                          },
-                        );
-                      },
-                    ),
+                Padding(
+                  padding:
+                      EdgeInsets.fromLTRB(mqwidth * .1,0, 0, 0),
+                  child: const Text(
+                    "More Options",
+                    style: headingStyle,
                   ),
-                ),
-                InkWell(
-                  onTap: () {
-                    aboutPopUp(context);
-                  },
-                  child: ListTile(
-                    title: Text(
-                      listOfOptiions[3],
-                      style: songNameStyle,
-                    ),
-                    trailing: listOfOptionsIcons[1],
-                  ),
-                ),
+                )
               ],
             ),
-          ),
-          SizedBox(
-            height: mqheight * 0.3,
-          ),
-          const Text("Version"),
-          SizedBox(
-            height: mqheight * 0.005,
-          ),
-          const Text(
-            "1.0.0",
-            style: TextStyle(fontSize: 12),
-          )
-        ],
+            SizedBox(
+              height: mqheight * .03,
+            ),
+            SizedBox(
+              height: mqheight * .5,
+              child: Column(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const TermsAndConditions(),
+                      ));
+                    },
+                    child: ListTile(
+                      title: Text(
+                        listOfOptiions[0],
+                        style: songNameStyle,
+                      ),
+                      trailing: listOfOptionsIcons[1],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => const PrivacyAndPolicy(),
+                      ));
+                    },
+                    child: ListTile(
+                      title: Text(listOfOptiions[1], style: songNameStyle),
+                      trailing: listOfOptionsIcons[1],
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {},
+                    child: ListTile(
+                      title: Text(listOfOptiions[2], style: songNameStyle),
+                      trailing: SwitcherButton(
+                        offColor: Colors.grey,
+                        onColor: Colors.blue,
+                        value: true,
+                        onChange: (value) {
+                          moreAudioplayer.showNotification == musicNotify;
+                        },
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    child: ListTile(
+                      title: const Text(
+                        "Theme Change",
+                        style: songNameStyle,
+                      ),
+                      trailing: BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
+                        builder: (context, state) {
+                          return SwitcherButton(
+                            offColor: Colors.grey,
+                            onColor: Colors.blue,
+                            onChange: (value) {
+                              if (value == true) {
+                                BlocProvider.of<ThemeChangerBloc>(context)
+                                    .add(IsDarkMode());
+                              } else {
+                                BlocProvider.of<ThemeChangerBloc>(context)
+                                    .add(IsLightMode());
+                              }
+                            },
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      aboutPopUp(context);
+                    },
+                    child: ListTile(
+                      title: Text(
+                        listOfOptiions[3],
+                        style: songNameStyle,
+                      ),
+                      trailing: listOfOptionsIcons[1],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: mqheight * 0.3,
+            ),
+            const Text("Version"),
+            SizedBox(
+              height: mqheight * 0.005,
+            ),
+            const Text(
+              "1.0.0",
+              style: TextStyle(fontSize: 12),
+            )
+          ],
+        ),
       ),
     );
   }

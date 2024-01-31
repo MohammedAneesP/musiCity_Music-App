@@ -1,5 +1,5 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:musi_city/functions/box_opening.dart';
 import 'package:musi_city/models/favorite_model.dart';

@@ -34,7 +34,7 @@ class AddFromNowPlay extends StatelessWidget {
             return BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
               builder: (context, state) {
                 return Container(
-                  height: mqheight * 0.4,
+                  height: mqheight * 0.43,
                   decoration: BoxDecoration(
                       color: state.anTheme.scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(20)),

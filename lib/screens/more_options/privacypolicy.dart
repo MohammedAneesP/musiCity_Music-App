@@ -10,34 +10,35 @@ class PrivacyAndPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
      // backgroundColor: musiCityBgColor,
-      body: Column(
-        children: [
-          heightGapSizedBoxHeading(context),
-          moreOptionHead(context, privacyPolicy),
-          Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  heightGapSizedBox(context),
-                  moreoptionParaText(context, privacyPolicyPara1),
-                  heightGapSizedBox(context),
-                  moreOptinParaHead(context, privcypolcCollecUse),
-                  heightGapSizedBox(context),
-                  moreoptionParaText(context,privacyPolicyPara2 ),
-                  heightGapSizedBox(context),
-                  moreOptinParaHead(context, privcyPolcyCookies),
-                  heightGapSizedBox(context),
-                  moreoptionParaText(context, privacyPolicyPara3),
-                  heightGapSizedBox(context),
-                  moreOptinParaHead(context, paraContactText),
-                  heightGapSizedBox(context),
-                  moreoptionParaText(context, paraText3),
-                  heightGapSizedBox(context),
-                ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            moreOptionHead(context, privacyPolicy),
+            Expanded(
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    heightGapSizedBox(context),
+                    moreoptionParaText(context, privacyPolicyPara1),
+                    heightGapSizedBox(context),
+                    moreOptinParaHead(context, privcypolcCollecUse),
+                    heightGapSizedBox(context),
+                    moreoptionParaText(context,privacyPolicyPara2 ),
+                    heightGapSizedBox(context),
+                    moreOptinParaHead(context, privcyPolcyCookies),
+                    heightGapSizedBox(context),
+                    moreoptionParaText(context, privacyPolicyPara3),
+                    heightGapSizedBox(context),
+                    moreOptinParaHead(context, paraContactText),
+                    heightGapSizedBox(context),
+                    moreoptionParaText(context, paraText3),
+                    heightGapSizedBox(context),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

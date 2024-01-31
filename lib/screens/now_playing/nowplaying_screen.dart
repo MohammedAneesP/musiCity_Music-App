@@ -71,7 +71,7 @@ class NowPlayingScreeen extends StatelessWidget {
                     ),
                     Padding(
                       padding: EdgeInsets.fromLTRB(
-                          mqwidth * .12, mqheight * .06, 0, 0),
+                          mqwidth * .18, mqheight * .06, 0, 0),
                       child:const Text(
                         "Now Playing",
                         style: headingStyle,

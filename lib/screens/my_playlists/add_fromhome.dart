@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +37,7 @@ class AddFromHomePlaylist extends StatelessWidget {
                   decoration: BoxDecoration(
                       color: state.anTheme.scaffoldBackgroundColor,
                       borderRadius: BorderRadius.circular(20)),
-                  height: mqheight * 0.4,
+                  height: mqheight * 0.43,
                   child: BlocBuilder<PlaylistListingBloc, PlaylistListingState>(
                     builder: (context, state) {
                       if (state.anNewPlayList.isEmpty) {
@@ -172,7 +170,9 @@ class AddFromHomePlaylist extends StatelessWidget {
             );
           },
         );
-        Navigator.pop(context);
+        if (context.mounted) {
+          Navigator.pop(context);
+        }
       },
       child: const Text(
         "Add to Playlist",

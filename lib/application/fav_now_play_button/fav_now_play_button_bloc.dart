@@ -1,4 +1,4 @@
-import 'package:bloc/bloc.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter/material.dart';
 import 'package:musi_city/functions/box_opening.dart';
@@ -11,9 +11,8 @@ class FavNowPlayButtonBloc
     extends Bloc<FavNowPlayButtonEvent, FavNowPlayButtonState> {
   FavNowPlayButtonBloc() : super(FavNowPlayButtonInitial()) {
     on<NowFavInitial>((event, emit) {
-      List<FavoriteModel>favListBloc = favoriteSong.values.toList();
+      List<FavoriteModel> favListBloc = favoriteSong.values.toList();
       return emit(FavNowPlayButtonState(favStateList: favListBloc));
     });
-     
   }
 }

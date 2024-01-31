@@ -53,7 +53,7 @@ class FavoritesScreen extends StatelessWidget {
         child: Column(
           children: [
             Padding(
-              padding: EdgeInsets.fromLTRB(mqwidth * 0.05, 0, 0, 0),
+              padding: EdgeInsets.fromLTRB(mqwidth * 0.05, mqheight * 0.01, 0, 0),
               child: Container(
                 height: mqheight * 0.1,
                 width: mqwidth * 0.8,

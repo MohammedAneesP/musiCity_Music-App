@@ -1,5 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_launcher_icons/xml_templates.dart';
 import 'package:musi_city/functions/box_opening.dart';
+import 'package:musi_city/functions/functions.dart';
 import 'package:musi_city/main.dart';
 import 'package:musi_city/models/home_models.dart';
 import 'package:musi_city/models/mostly_model.dart';
@@ -29,10 +32,29 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('assets/Picsart_23-01-15_15-15-28-771.jpg'),
-            fit: BoxFit.cover),
+      color: Colors.blueGrey,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Container(
+            height: 200,
+            decoration: const BoxDecoration(
+                image:
+                    DecorationImage(image: AssetImage("assets/new_icon.png"))),
+          ),
+         const SizedBox(
+            height: 15,
+          ),
+          const Text(
+            "musiCity",
+            style: TextStyle(
+              fontSize: 35,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+              decoration: TextDecoration.none
+            ),
+          )
+        ],
       ),
     );
   }

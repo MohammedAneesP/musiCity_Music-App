@@ -4,44 +4,25 @@ import 'package:musi_city/screens/mostly_played/mostly_playedscreen.dart';
 import 'package:musi_city/screens/my_playlists/my_playlistscreen.dart';
 import 'package:musi_city/screens/recently_played/recently_playedscreen.dart';
 
-class PlaylistScreen extends StatefulWidget {
+class PlaylistScreen extends StatelessWidget {
   const PlaylistScreen({super.key});
 
   @override
-  State<PlaylistScreen> createState() => _PlaylistScreenState();
-}
-
-class _PlaylistScreenState extends State<PlaylistScreen> {
-  @override
   Widget build(BuildContext context) {
-    final mqheight = MediaQuery.of(context).size.height;
-    final mqwidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      // backgroundColor: musiCityBgColor,
-
+      appBar: AppBar(
+        title: const Text(
+          "Playlists",
+          style: headingStyle,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding:
-                  EdgeInsets.fromLTRB(mqwidth * 0.005, 0, 0, 0),
-              child: Container(
-                height: mqheight * 0.1,
-                width: mqwidth * 0.8,
-                decoration: const BoxDecoration(
-                  //  color: Colors.amber,
-                  image: DecorationImage(
-                    image: AssetImage('assets/playlist.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
             InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  MostlyPlayedScreen(),
+                  builder: (context) => MostlyPlayedScreen(),
                 ));
               },
               child: ListTile(
@@ -54,14 +35,11 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             ),
             InkWell(
               onTap: () {
-                // BlocProvider.of<RecentlyPlayedBloc>(context)
-                //     .add(RecentShowListEvent());
                 Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => RecentlyPlayedScreen(),
                   ),
                 );
-            
               },
               child: ListTile(
                 title: const Text(
@@ -74,7 +52,7 @@ class _PlaylistScreenState extends State<PlaylistScreen> {
             InkWell(
               onTap: () {
                 Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) =>  MyPlaylist(),
+                  builder: (context) => MyPlaylist(),
                 ));
               },
               child: ListTile(

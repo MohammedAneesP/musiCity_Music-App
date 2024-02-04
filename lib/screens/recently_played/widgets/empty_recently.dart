@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:musi_city/functions/functions.dart';
 
@@ -15,39 +14,26 @@ class EmptyRecentlyPlayed extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            SizedBox(
-              height: mqheight * 0.1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: mqheight * 0.29,
-                    width: mqwidth * 0.83,
-                    decoration: const BoxDecoration(
-                      image: DecorationImage(
-                          image: AssetImage('assets/recently.png'),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.delete,
-                    ),
-                  )
-                ],
-              ),
+      appBar: AppBar(
+        title: const Text(
+          "Recently Played",
+          style: headingStyle,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(
+              Icons.delete,
             ),
-            const Spacer(),
-            const Text(
-              "Nothing Played Yet",
-              style: headingStyle,
-            ),
-            const Spacer(),
-          ],
+          )
+        ],
+      ),
+      body: const SafeArea(
+        child: Center(
+          child: Text(
+            "Nothing Played Yet",
+            style: defaultTextStyle,
+          ),
         ),
       ),
     );

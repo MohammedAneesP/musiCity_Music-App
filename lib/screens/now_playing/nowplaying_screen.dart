@@ -51,36 +51,39 @@ class NowPlayingScreeen extends StatelessWidget {
       builder: (context, playing) {
         return Scaffold(
           //backgroundColor: musiCityBgColor,
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(0, mqheight * .06, 0, 0),
-                      child: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: const Icon(
-                          Icons.arrow_back_rounded,
-                          size: 25,
-                          // color: whiteColor,
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.fromLTRB(
-                          mqwidth * .18, mqheight * .06, 0, 0),
-                      child:const Text(
+          appBar: AppBar(title: const Text(
                         "Now Playing",
                         style: headingStyle,
                       ),
-                    ),
-                  ],
-                ),
+                      centerTitle: true,
+                      ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                // Row(
+                //   children: [
+                //     Padding(
+                //       padding: EdgeInsets.fromLTRB(0, mqheight * .06, 0, 0),
+                //       child: IconButton(
+                //         onPressed: () {
+                //           Navigator.pop(context);
+                //         },
+                //         icon: const Icon(
+                //           Icons.arrow_back_rounded,
+                //           size: 25,
+                //           // color: whiteColor,
+                //         ),
+                //       ),
+                //     ),
+                //     Padding(
+                //       padding: EdgeInsets.fromLTRB(
+                //           mqwidth * .18, mqheight * .06, 0, 0),
+                //       child:
+                //     ),
+                //   ],
+                // ),
                 Padding(
-                  padding: EdgeInsets.fromLTRB(0, mqheight * .07, 0, 0),
+                  padding: EdgeInsets.fromLTRB(0, mqheight * .06, 0, 0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

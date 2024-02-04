@@ -27,64 +27,47 @@ class MostlyPlayedScreen extends StatelessWidget {
       BlocProvider.of<MostlyPlayedBloc>(context).add(MostlyScreenShow());
     });
 
-    final mqheight = MediaQuery.of(context).size.height;
-    final mqwidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
+      appBar: AppBar(
+        title: const Text(
+          "Mostly Played",
+          style: headingStyle,
+        ),
+        actions: [
+          IconButton(
+            onPressed: () {
+              showDialog(
+                context: context,
+                builder: (context) {
+                  return AlertDialog(
+                    title: const Text("Do you want to clear all songs..?"),
+                    content: const Text("Are you Sure..."),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel"),
+                      ),
+                      TextButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                          },
+                          child: const Text("Yes"))
+                    ],
+                  );
+                },
+              );
+            },
+            icon: const Icon(
+              Icons.delete,
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            SizedBox(
-              height: mqheight * 0.1,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    height: mqheight * 0.28,
-                    width: mqwidth * 0.815,
-                    decoration: const BoxDecoration(
-                      //  color: Colors.amber,
-                      image: DecorationImage(
-                          image: AssetImage('assets/mostly.png'),
-                          fit: BoxFit.cover),
-                    ),
-                  ),
-                  SizedBox(
-                    width: mqwidth * 0.06,
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      showDialog(
-                        context: context,
-                        builder: (context) {
-                          return AlertDialog(
-                            title:
-                                const Text("Do you want to clear all songs..?"),
-                            content: const Text("Are you Sure..."),
-                            actions: [
-                              TextButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("Cancel"),
-                              ),
-                              TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("Yes"))
-                            ],
-                          );
-                        },
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.delete,
-                    ),
-                  ),
-                ],
-              ),
-            ),
             Expanded(
               child: SizedBox(
                 child: BlocBuilder<MostlyPlayedBloc, MostlyPlayedState>(

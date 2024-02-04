@@ -20,38 +20,15 @@ class MoreOPtionScreen extends StatelessWidget {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        title: Text(
+          "More Options",
+          style: headingStyle,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            Row(
-              children: [
-                Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(mqwidth * .008,0, 0, 0),
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: const Icon(
-                      Icons.arrow_back_ios_new_rounded,
-                      size: 20,
-                      //  color: Colors.white,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding:
-                      EdgeInsets.fromLTRB(mqwidth * .1,0, 0, 0),
-                  child: const Text(
-                    "More Options",
-                    style: headingStyle,
-                  ),
-                )
-              ],
-            ),
-            SizedBox(
-              height: mqheight * .03,
-            ),
             SizedBox(
               height: mqheight * .5,
               child: Column(
@@ -101,7 +78,8 @@ class MoreOPtionScreen extends StatelessWidget {
                         "Theme Change",
                         style: songNameStyle,
                       ),
-                      trailing: BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
+                      trailing:
+                          BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
                         builder: (context, state) {
                           return SwitcherButton(
                             offColor: Colors.grey,
@@ -157,7 +135,7 @@ class MoreOPtionScreen extends StatelessWidget {
       context: context,
       applicationName: 'musiCity',
       applicationIcon: Image.asset(
-        'assets/_.jpeg',
+        leadingImage,
         height: 40,
         width: 40,
       ),

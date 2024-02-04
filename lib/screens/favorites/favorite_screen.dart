@@ -44,54 +44,21 @@ class FavoritesScreen extends StatelessWidget {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       BlocProvider.of<FavoriteListBloc>(context).add(FavListingScreen());
     });
-    final mqheight = MediaQuery.of(context).size.height;
-    final mqwidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
-      // backgroundColor: musiCityBgColor,
+      appBar: AppBar(
+        title: const Text(
+          "Favourite's",
+          style: headingStyle,
+        ),
+      ),
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.fromLTRB(mqwidth * 0.05, mqheight * 0.01, 0, 0),
-              child: Container(
-                height: mqheight * 0.1,
-                width: mqwidth * 0.8,
-                decoration: const BoxDecoration(
-                  //  color: Colors.amber,
-                  image: DecorationImage(
-                    image: AssetImage('assets/favorite.png'),
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            ),
+            
             Expanded(
               child: SizedBox(
-                // child: ValueListenableBuilder(
-                //   valueListenable: favoriteSong.listenable(),
-                //   builder:
-                //       // ignore: avoid_types_as_parameter_names, non_constant_identifier_names
-                //       (BuildContext, Box<FavoriteModel> favoriteSongPlay, child) {
-                //     List<FavoriteModel> allFavSong =
-                //         favoriteSongPlay.values.toList();
-      
-                //   },
-                // ),
                 child: BlocBuilder<FavoriteListBloc, FavoriteListState>(
                   builder: (context, state) {
-                    // for (var element in state.favStateList) {
-                    //   favAudioConvrt.add(
-                    //     Audio.file(
-                    //       element.favSongUrl,
-                    //       metas: Metas(
-                    //         id: element.favSongId.toString(),
-                    //         artist: element.favSongArtist,
-                    //         title: element.favSongName,
-                    //       ),
-                    //     ),
-                    //   );
-                    // }
                     if (state.favStateList.isEmpty) {
                       return const Center(
                         child: Text("No favorite's Yet...!",
@@ -114,8 +81,8 @@ class FavoritesScreen extends StatelessWidget {
                               );
                               Navigator.of(context).push(
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      NowPlayingScreeen(currentPlayIndex: index),
+                                  builder: (context) => NowPlayingScreeen(
+                                      currentPlayIndex: index),
                                 ),
                               );
                             },
@@ -148,7 +115,8 @@ class FavoritesScreen extends StatelessWidget {
                                     context: context,
                                     builder: (context) {
                                       return AlertDialog(
-                                        title: const Text("Remove this Song..."),
+                                        title:
+                                            const Text("Remove this Song..."),
                                         content: const Text("Are you Sure..?"),
                                         actions: [
                                           TextButton(
@@ -159,7 +127,8 @@ class FavoritesScreen extends StatelessWidget {
                                           ),
                                           TextButton(
                                             onPressed: () {
-                                              state.favStateList.removeAt(index);
+                                              state.favStateList
+                                                  .removeAt(index);
                                               favoriteSong.deleteAt(index);
                                               BlocProvider.of<FavoriteListBloc>(
                                                       context)

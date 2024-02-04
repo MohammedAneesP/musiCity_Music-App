@@ -52,74 +52,63 @@ class RecentlyPlayedScreen extends StatelessWidget {
           List<RecentlyModel> allRecentSong =
               state.recentMusic.reversed.toList();
           return Scaffold(
+            appBar: AppBar(
+              title: const Text(
+                "Recently Played",
+                style: headingStyle,
+              ),
+              actions: [
+                IconButton(
+                  onPressed: () {
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return AlertDialog(
+                          title: const Text(
+                              "Do you want to delete whole recent songs..?"),
+                          content: const Text("Are you Sure..."),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: const Text("Cancel"),
+                            ),
+                            BlocProvider(
+                              create: (context) => RecentlyPlayedBloc(),
+                              child: TextButton(
+                                onPressed: () async {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) => const Center(
+                                      child: CircularProgressIndicator(),
+                                    ),
+                                  );
+                                  await recentlyPlayedBox.clear();
+                                  if (context.mounted) {
+                                    BlocProvider.of<RecentlyPlayedBloc>(context)
+                                        .add(RecentShowListEvent());
+                                    Navigator.pop(context);
+                                    Navigator.pop(context);
+                                  }
+                                },
+                                child: const Text("Yes"),
+                              ),
+                            )
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.delete,
+                  ),
+                )
+              ],
+            ),
             body: SafeArea(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: mqheight * 0.1,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Container(
-                          height: mqheight * 0.29,
-                          width: mqwidth * 0.83,
-                          decoration: const BoxDecoration(
-                            image: DecorationImage(
-                                image: AssetImage('assets/recently.png'),
-                                fit: BoxFit.cover),
-                          ),
-                        ),
-                        IconButton(
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) {
-                                return AlertDialog(
-                                  title: const Text(
-                                      "Do you want to delete whole recent songs..?"),
-                                  content: const Text("Are you Sure..."),
-                                  actions: [
-                                    TextButton(
-                                      onPressed: () {
-                                        Navigator.pop(context);
-                                      },
-                                      child: const Text("Cancel"),
-                                    ),
-                                    BlocProvider(
-                                      create: (context) => RecentlyPlayedBloc(),
-                                      child: TextButton(
-                                        onPressed: () async {
-                                          showDialog(
-                                            context: context,
-                                            builder: (context) => const Center(
-                                              child:
-                                                  CircularProgressIndicator(),
-                                            ),
-                                          );
-                                          await recentlyPlayedBox.clear();
-                                          if (context.mounted) {
-                                            BlocProvider.of<RecentlyPlayedBloc>(
-                                                    context)
-                                                .add(RecentShowListEvent());
-                                            Navigator.pop(context);
-                                            Navigator.pop(context);
-                                          }
-                                        },
-                                        child: const Text("Yes"),
-                                      ),
-                                    )
-                                  ],
-                                );
-                              },
-                            );
-                          },
-                          icon: const Icon(
-                            Icons.delete,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
                   Expanded(
                     child: SizedBox(
                       child: ListView.separated(

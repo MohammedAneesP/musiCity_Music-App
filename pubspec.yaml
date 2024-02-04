@@ -31,6 +31,7 @@ environment:
 dependencies:
   assets_audio_player: ^3.0.5
   audio_video_progress_bar: ^0.11.0
+  cached_network_image:
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
@@ -40,7 +41,7 @@ dependencies:
   hive: ^2.2.1
   hive_flutter: ^1.1.0
   marquee: ^2.2.1
-  meta: ^1.9.1
+  meta:
   on_audio_query: ^2.6.0
   readmore: ^2.2.0
   switcher_button: ^0.0.4

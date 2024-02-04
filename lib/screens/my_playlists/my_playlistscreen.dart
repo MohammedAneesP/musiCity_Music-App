@@ -29,6 +29,11 @@ class MyPlaylist extends StatelessWidget {
     final mqwidth = MediaQuery.of(context).size.width;
 
     return Scaffold(
+      appBar: AppBar(
+        title:const Text(
+          "My Playlist's",style: headingStyle,
+        ),
+      ),
       floatingActionButton: Padding(
         padding: EdgeInsets.fromLTRB(0, 0, mqwidth * 0.05, mqheight * 0.03),
         child: PlaylistCreateButton(
@@ -37,8 +42,6 @@ class MyPlaylist extends StatelessWidget {
       body: SafeArea(
         child: Column(
           children: [
-            PlaylistTitle(mqheight: mqheight, mqwidth: mqwidth),
-            SizedBox(height: mqheight * 0.05),
             Expanded(
               child: SizedBox(
                 child: BlocBuilder<PlaylistListingBloc, PlaylistListingState>(
